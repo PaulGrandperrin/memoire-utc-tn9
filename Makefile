@@ -13,7 +13,7 @@ pdf : img
 
 
 clean : img_clean
-	rm -f *~ */*~ *.aux *.bbl *.blg *.dvi *.idx *.ilg *.ind *.log *.pyg *.toc
+	rm -f *~ */*~ *.aux *.bbl *.blg *.dvi *.idx *.ilg *.ind *.log *.pyg *.toc *.out *.lof
 	rm -f src/*.aux src/*.toc
 
 mrproper : clean
