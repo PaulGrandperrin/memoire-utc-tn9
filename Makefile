@@ -2,11 +2,8 @@ OUTFILE ?= memoire_grandperrin_paul.pdf
 
 all: pdf
 
-kde-open: pdf
-	kde-open $(OUTFILE)
-
-gnome-open: pdf
-	gnome-open $(OUTFILE)
+xdg-open: pdf
+	xdg-open $(OUTFILE)
 
 pdf : img
 	latex -shell-escape main
