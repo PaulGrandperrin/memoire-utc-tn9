@@ -5,7 +5,7 @@ all: pdf
 xdg-open: pdf
 	xdg-open $(OUTFILE)
 
-pdf : img
+pdf : resource
 	latex -shell-escape main
 	bibtex main
 	makeindex main
@@ -13,16 +13,20 @@ pdf : img
 	pdflatex -shell-escape main
 	mv main.pdf $(OUTFILE)
 
-clean : img_clean
+clean : resource_clean
 	rm -f *~ */*~ *.aux *.bbl *.blg *.dvi *.idx *.ilg *.ind *.log *.pyg *.toc *.out *.lof
 
 mrproper : clean
 	rm -f $(OUTFILE)
 
-img :
-	cd img && $(MAKE)
+resource :
+	cd resource/img && $(MAKE)
+	cd resource/plot && $(MAKE)
+	cd resource/graph && $(MAKE)
 
-img_clean:
-	cd img && $(MAKE) clean
+resource_clean:
+	cd resource/img && $(MAKE) clean
+	cd resource/plot && $(MAKE) clean
+	cd resource/graph && $(MAKE) clean
 
-.PHONY : clean pdf mrproper img img_clean
+.PHONY : clean pdf mrproper resource img_clean

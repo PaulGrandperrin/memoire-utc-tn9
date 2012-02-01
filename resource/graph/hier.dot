@@ -1,0 +1,42 @@
+digraph G
+{
+  compound=true;
+  node [shape = record,height=0.1];
+  pdg[label="{<f>PDG d'Alter Way |{<pm> Philippe Montargès|<vt> Véronique Torner}}"];
+  la[headport=n,label="{<f>Directeur de Production| <nom> Laurent Alaguero}"];
+  sv[label="{<f>Directeur Général des Opérations|<nom>Stéphane Vincent}"];
+  hl[label="{<f>Directeur Technique|<nom>Hervé Leclerc}"];
+  cp[label="{<f>Responsable de Production|<nom>Christophe Pichon}"];
+  nb[label="{<f>Directeur des Opérations|<nom>Nicolas Barry}"];
+  dbls[label="{<f>Directeur d'Operation|{<db>Dominique Brunel|<ls>Laurence Seguy}}"];
+  km[label="{<f>Chef de Projet d'Exploitation|<nom>Kévin Mazière}"];
+  yf[label="{<f>Responsable du Service Technique|<nom>Yannick Foeillet}"];
+  vbr[label="{<f>Ingénieur Système et Réseaux|<nom>Vivien Bernet-Rollande}"];
+  js[label="{<f>Technicien Infrastructure|<nom>Julien Schilt}"];
+  pg[label="{<f>Stagiaire|<nom>Paul Grandperrin}"];
+  
+ /* pdg -> la;
+  pdg -> sv;
+  pdg -> hl;
+  pdg -> cp;
+  pdg -> nb;
+  pdg -> dbls;
+  la -> km;
+  la -> yf;
+  km -> vbr;
+  km -> js;
+  vbr -> pg;
+*/ 
+  subgraph AWH
+  {
+    label="Hosting";
+    la->km;
+    la->yf;
+    km->vbr;
+    km->js;
+    vbr->pg;
+  };
+  subgraph AWS {label="Solution"; sv; hl; cp;};
+  subgraph AWC {label="Creative"; dbls};
+  subgraph AWF {label="Formation"; nb;};
+}
