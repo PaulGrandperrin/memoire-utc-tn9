@@ -1,6 +1,6 @@
 all: hier.dot
-	dot -Tpng hier.dot -o hier.png	
-	sam2p hier.png EPS: hier.eps
+	dot -Tps hier.dot -o hier.ps
+	pstoedit -f plot-ps hier.ps hier.eps
 
 clean:
-	rm -f *.eps *.png
+	rm -f *.ps *.eps *.pdf

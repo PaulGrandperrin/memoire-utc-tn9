@@ -5,7 +5,64 @@
 Ces benchmarks ont été réalisés dans le but l'impact des différentes versions du noyau linux
 (en DomU) sur les performances d'I/O disque des VM Xen.
 
+
 \section{Noyau linux 2.6.32-xen}
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[angle=-90,width=1\textwidth]{resource/plot/iozone-2_6_32-debian-xen-withoutcache-withoutbarrier_out_reads}
+	\caption{Cache d'écriture: \textbf{désactivé}   -   Barrière d'écriture: \textbf{désactivée}}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[angle=-90,width=1\textwidth]{resource/plot/iozone-2_6_32-debian-xen-withcache-withoutbarrier_out_reads}
+	\caption{Cache d'écriture: \textbf{activé}   -   Barrière d'écriture: \textbf{désactivée}}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[angle=-90,width=1\textwidth]{resource/plot/iozone-2_6_32-debian-xen-withcache-withbarrier_out_reads}
+	\caption{Cache d'écriture: \textbf{activé}   -   Barrière d'écriture: \textbf{activée}}
+\end{figure}
 
 
+\section{Noyau linux 3.1}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[angle=-90,width=1\textwidth]{resource/plot/iozone-3_1-linus-withoutcache-withoutbarrier_out_reads}
+	\caption{Cache d'écriture: \textbf{désactivé}   -   Barrière d'écriture: \textbf{désactivée}}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[angle=-90,width=1\textwidth]{resource/plot/iozone-3_1-linus-withcache-withoutbarrier_out_reads}
+	\caption{Cache d'écriture: \textbf{activé}   -   Barrière d'écriture: \textbf{désactivée}}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[angle=-90,width=1\textwidth]{resource/plot/iozone-3_1-linus-withcache-withbarrier_out_reads}
+	\caption{Cache d'écriture: \textbf{activé}   -   Barrière d'écriture: \textbf{activée}}
+\end{figure}
+
+\section{Noyau linux 3.2}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[angle=-90,width=1\textwidth]{resource/plot/iozone-3_2-linus-withoutcache-withoutbarrier_out_reads}
+	\caption{Cache d'écriture: \textbf{désactivé}   -   Barrière d'écriture: \textbf{désactivée}}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[angle=-90,width=1\textwidth]{resource/plot/iozone-3_2-linus-withcache-withoutbarrier_out_reads}
+	\caption{Cache d'écriture: \textbf{activé}   -   Barrière d'écriture: \textbf{désactivée}}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[angle=-90,width=1\textwidth]{resource/plot/iozone-3_2-linus-withcache-withbarrier_out_reads}
+	\caption{Cache d'écriture: \textbf{activé}   -   Barrière d'écriture: \textbf{activée}}
+\end{figure}

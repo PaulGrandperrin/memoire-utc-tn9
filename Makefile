@@ -20,13 +20,9 @@ mrproper : clean
 	rm -f $(OUTFILE)
 
 resource :
-	cd resource/img && $(MAKE)
-	cd resource/plot && $(MAKE)
-	cd resource/graph && $(MAKE)
+	cd resource && $(MAKE)
 
 resource_clean:
-	cd resource/img && $(MAKE) clean
-	cd resource/plot && $(MAKE) clean
-	cd resource/graph && $(MAKE) clean
+	cd resource && $(MAKE) clean
 
 .PHONY : clean pdf mrproper resource img_clean

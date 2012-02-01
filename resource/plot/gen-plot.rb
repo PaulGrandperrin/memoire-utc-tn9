@@ -3,8 +3,8 @@
 
 filename = ARGV[0]
 
-readdata = filename + ".reads.out"
-writedata = filename + ".writes.out"
+readdata = filename + "_reads"
+writedata = filename + "_writes"
 
 rfd = File.open(readdata, "w")
 wfd = File.open(writedata, "w")
@@ -40,7 +40,7 @@ def plot(infile, outfile)
     IO.popen("gnuplot", "w") do |gnuplot|
         str = <<-EOF
             set title "Iozone performance"
-            set terminal png 20 size 800, 640
+            set terminal postscript
             set palette defined (0 "blue",1400 "green", 2100 "yellow", 3000 "red", 3600 "black")
             set grid lt 0.5 lw 0.5 lc rgb "black"
             set surface
@@ -69,6 +69,6 @@ def plot(infile, outfile)
 end
 
 sleep 1
-plot readdata, readdata + ".png"
-plot writedata, writedata + ".png"
+plot readdata, readdata + ".eps"
+plot writedata, writedata + ".eps"
 
