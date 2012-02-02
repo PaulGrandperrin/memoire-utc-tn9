@@ -75,15 +75,71 @@ AWH est organisé en quatres équipes affectées à quatres types d'offres diff�
 
 \section{Hiérarchie}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=1\textwidth]{resource/graph/hier}
-	\caption{La hiérarchie d'Alter Way}
-\end{figure}
+% \begin{figure}[H]
+% 	\centering
+% 	\includegraphics[width=1\textwidth]{resource/graph/hier}
+% 	\caption{La hiérarchie d'Alter Way}
+% \end{figure}
 
 \chapter{Sujet du stage}
 
 \section{Contexte Technologique}
+
+\section{La virtualisation}
+\label{virtualisation}
+\paragraph*{}
+La virtualisation consiste à faire fonctionner un logiciel ou un système d'exploitation (SE) dans un environnement simulé/virtuel.
+\\
+Normalement un logiciel est éxécutée par le processeur (CPU) de l'ordinateur. Dans le cas de la virtualisation au niveau logiciel,
+ce logiciel ne sera pas éxécuté directement par un vrai CPU mais par un autre logiciel appelé gestionnaire de machine virtuelle.
+\\
+Dans le cas de la virtualisation d'un OS (appelé virtualisation matérielle, plusieurs solutions sont possible. La solution la plus basique est de simuler l'intégralité
+de l'ordinateur: le CPU, le disque dur, la carte réseau, l'écran, la souris, le clavier ect.
+Il devient alors possible de faire fonctionner un OS ou plusieurs OS dans un autre OS.
+
+\subsection{La virtualisation de système d'exploitation}
+\label{virtualisation_mat}
+\subsubsection{Les différentes techniques}
+\paragraph*{}
+Il existe plusieurs méthode pour virtualiser un système d'exploitation. Chacunes d'elles ont des avantages et des
+inconvéniants. Le choix d'une méthode est un compromis entre les performances, l'isolation des systèmes virtualisés,
+et la simplicité de mise en oeuvre.
+
+\paragraph*{}
+Dans ce document, nous appelerons les systèmes d'exploitations virtualisés/invités \textbf{VM} comme \emph{Virtual Machine} ou \textbf{domU} suivant le contexte.
+Le système d'exploitation principal/hôte sera appelé dom0 ou hyperviseur si aucun autre logiciel n'a déjà ce role dans l'architecture de virtualisation
+utilisée.
+
+\paragraph*{}
+\begin{description}
+
+	\item[Par émulation] Fig \ref{emulation} : Relativement facile à mettre en oeuvre, compatible avec tout les systèmes d'exploitations et toutes les architectures
+	de processeur. L'isolation des VMs est parfaite mais les performances sont extrêmement mauvaises.
+
+	\item[Par isolation] Fig \ref{isolation} : Moyennement facile mettre en ouvre, oblige à avoir exactement le même système d'exploitation dans le domU et le dom0.
+	L'isolation des VMs est généralement très faible mais les performances sont maximal. Les VMs se partagent de manière optimale les ressources de la machine.
+
+	\item[Par noyau en espace utilisateur] Fig \ref{userkernel} : Moyennement facile à mettre en oeuvre et ne fonctionne qu'avec le système d'exploitation Linux en domU.
+	L'isolation des VMs est très bonne mais les performances plutôt mauvaises.
+
+	\item[Par hyperviseur] Fig \ref{hypervisor} : Un peu complexe à mettre en oeuvre mais est capable d'avoir de très bonnes performances si le système d'exploitation invité
+	utilise des drivers spéciaux pour fonctionner de manière optimisée avec l'hyperviseur. Si l'OS invité ne contient pas les bons drivers, la VM marchera tout de même mais
+	avec des performances dégradées.
+
+\end{description}
+
+\begin{figure}[H]
+\centering
+\subfloat[Par émulation]{\label{emulation}\includegraphics[width=0.4\textwidth]{resource/img/Diagramme_ArchiEmulateur}}
+\subfloat[Par isolation]{\label{isolation}\includegraphics[width=0.4\textwidth]{resource/img/Diagramme_ArchiIsolateur}}
+\\
+\subfloat[Par noyau en espace utilisateur]{\label{userkernel}\includegraphics[width=0.4\textwidth]{resource/img/Diagramme_ArchiKernelUserSpace}}
+\subfloat[Par hyperviseur]{\label{hypervisor}\includegraphics[width=0.4\textwidth]{resource/img/Diagramme_ArchiHyperviseur}}
+\caption{Les différentes architectures de virtualisation d'OS}
+\end{figure}
+
+
+
 
 \section{Le cloud computing\index{Cloud Computing}}
 \subsection{Principe général}
@@ -171,10 +227,6 @@ Il est donc possible d'automatiser et d'industrialiser le processus de création
 Par exemple, sur le site d'amazon, il suffit d'entrer ses coordonnées bancaires et de renseigner quelques options (puissance de la machine, système d'exploitation, logiciels à préinstaller ...)
  pour avoir accès à une machine toute prête en quelques secondes seulement. Ensuite, via un simple clic, il est possible de changer le nombre de machine que l'on veux.
 La facturation est calculé à la seconde. Ce type d'offre est donc très pratique pour les personnes ayant besoin de beaucoup de puissance durant un court laps de temps.
-
-
-\section{La virtualisation}
-\label{virtualisation}
 
 \section{La problématique d'Alter Way Hosting}
 

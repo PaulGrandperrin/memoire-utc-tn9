@@ -8,61 +8,126 @@ Ces benchmarks ont été réalisés dans le but l'impact des différentes versio
 
 \section{Noyau linux 2.6.32-xen}
 
+\subsection*{En lecture}
+
 \begin{figure}[H]
 	\centering
-	\includegraphics[angle=-90,width=1\textwidth]{resource/plot/iozone-2_6_32-debian-xen-withoutcache-withoutbarrier_out_reads}
+	\includegraphics[angle=-90,width=0.8\textwidth]{resource/plot/iozone-2_6_32-debian-xen-withoutcache-withoutbarrier_out_reads}
 	\caption{Cache d'écriture: \textbf{désactivé}   -   Barrière d'écriture: \textbf{désactivée}}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[angle=-90,width=1\textwidth]{resource/plot/iozone-2_6_32-debian-xen-withcache-withoutbarrier_out_reads}
+	\includegraphics[angle=-90,width=0.8\textwidth]{resource/plot/iozone-2_6_32-debian-xen-withcache-withoutbarrier_out_reads}
 	\caption{Cache d'écriture: \textbf{activé}   -   Barrière d'écriture: \textbf{désactivée}}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[angle=-90,width=1\textwidth]{resource/plot/iozone-2_6_32-debian-xen-withcache-withbarrier_out_reads}
+	\includegraphics[angle=-90,width=0.8\textwidth]{resource/plot/iozone-2_6_32-debian-xen-withcache-withbarrier_out_reads}
 	\caption{Cache d'écriture: \textbf{activé}   -   Barrière d'écriture: \textbf{activée}}
 \end{figure}
 
-
-\section{Noyau linux 3.1}
+\subsection*{En écriture}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[angle=-90,width=1\textwidth]{resource/plot/iozone-3_1-linus-withoutcache-withoutbarrier_out_reads}
+	\includegraphics[angle=-90,width=0.8\textwidth]{resource/plot/iozone-2_6_32-debian-xen-withoutcache-withoutbarrier_out_writes}
 	\caption{Cache d'écriture: \textbf{désactivé}   -   Barrière d'écriture: \textbf{désactivée}}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[angle=-90,width=1\textwidth]{resource/plot/iozone-3_1-linus-withcache-withoutbarrier_out_reads}
+	\includegraphics[angle=-90,width=0.8\textwidth]{resource/plot/iozone-2_6_32-debian-xen-withcache-withoutbarrier_out_writes}
 	\caption{Cache d'écriture: \textbf{activé}   -   Barrière d'écriture: \textbf{désactivée}}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[angle=-90,width=1\textwidth]{resource/plot/iozone-3_1-linus-withcache-withbarrier_out_reads}
+	\includegraphics[angle=-90,width=0.8\textwidth]{resource/plot/iozone-2_6_32-debian-xen-withcache-withbarrier_out_writes}
+	\caption{Cache d'écriture: \textbf{activé}   -   Barrière d'écriture: \textbf{activée}}
+\end{figure}
+
+\section{Noyau linux 3.1}
+
+\subsection*{En lecture}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[angle=-90,width=0.8\textwidth]{resource/plot/iozone-3_1-linus-withoutcache-withoutbarrier_out_reads}
+	\caption{Cache d'écriture: \textbf{désactivé}   -   Barrière d'écriture: \textbf{désactivée}}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[angle=-90,width=0.8\textwidth]{resource/plot/iozone-3_1-linus-withcache-withoutbarrier_out_reads}
+	\caption{Cache d'écriture: \textbf{activé}   -   Barrière d'écriture: \textbf{désactivée}}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[angle=-90,width=0.8\textwidth]{resource/plot/iozone-3_1-linus-withcache-withbarrier_out_reads}
+	\caption{Cache d'écriture: \textbf{activé}   -   Barrière d'écriture: \textbf{activée}}
+\end{figure}
+
+\subsection*{En écriture}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[angle=-90,width=0.8\textwidth]{resource/plot/iozone-3_1-linus-withoutcache-withoutbarrier_out_writes}
+	\caption{Cache d'écriture: \textbf{désactivé}   -   Barrière d'écriture: \textbf{désactivée}}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[angle=-90,width=0.8\textwidth]{resource/plot/iozone-3_1-linus-withcache-withoutbarrier_out_writes}
+	\caption{Cache d'écriture: \textbf{activé}   -   Barrière d'écriture: \textbf{désactivée}}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[angle=-90,width=0.8\textwidth]{resource/plot/iozone-3_1-linus-withcache-withbarrier_out_writes}
 	\caption{Cache d'écriture: \textbf{activé}   -   Barrière d'écriture: \textbf{activée}}
 \end{figure}
 
 \section{Noyau linux 3.2}
 
+\subsection*{En lecture}
+
 \begin{figure}[H]
 	\centering
-	\includegraphics[angle=-90,width=1\textwidth]{resource/plot/iozone-3_2-linus-withoutcache-withoutbarrier_out_reads}
+	\includegraphics[angle=-90,width=0.8\textwidth]{resource/plot/iozone-3_2-linus-withoutcache-withoutbarrier_out_reads}
 	\caption{Cache d'écriture: \textbf{désactivé}   -   Barrière d'écriture: \textbf{désactivée}}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[angle=-90,width=1\textwidth]{resource/plot/iozone-3_2-linus-withcache-withoutbarrier_out_reads}
+	\includegraphics[angle=-90,width=0.8\textwidth]{resource/plot/iozone-3_2-linus-withcache-withoutbarrier_out_reads}
 	\caption{Cache d'écriture: \textbf{activé}   -   Barrière d'écriture: \textbf{désactivée}}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[angle=-90,width=1\textwidth]{resource/plot/iozone-3_2-linus-withcache-withbarrier_out_reads}
+	\includegraphics[angle=-90,width=0.8\textwidth]{resource/plot/iozone-3_2-linus-withcache-withbarrier_out_writes}
+	\caption{Cache d'écriture: \textbf{activé}   -   Barrière d'écriture: \textbf{activée}}
+\end{figure}
+
+\subsection*{En écriture}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[angle=-90,width=0.8\textwidth]{resource/plot/iozone-3_2-linus-withoutcache-withoutbarrier_out_writes}
+	\caption{Cache d'écriture: \textbf{désactivé}   -   Barrière d'écriture: \textbf{désactivée}}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[angle=-90,width=0.8\textwidth]{resource/plot/iozone-3_2-linus-withcache-withoutbarrier_out_writes}
+	\caption{Cache d'écriture: \textbf{activé}   -   Barrière d'écriture: \textbf{désactivée}}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[angle=-90,width=0.8\textwidth]{resource/plot/iozone-3_2-linus-withcache-withbarrier_out_writes}
 	\caption{Cache d'écriture: \textbf{activé}   -   Barrière d'écriture: \textbf{activée}}
 \end{figure}
