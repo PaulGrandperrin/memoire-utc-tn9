@@ -26,7 +26,7 @@
 
 	\begin{description}
 		\item[Anaska] Leader français de formation open source en 2001
-		\item[Eclip's Software] Éditreur d'une solution d'administration réseau
+		\item[Eclip's Software] Éditeur d'une solution d'administration réseau
 		\item[Ingeniweb] Spécialiste en solution web d'entreprise de gestion de contenu
 		\item[Kanopee] Consultants en développement PHP
 		\item[Nexen Services] Hébergement et Infogérance LAMP\footnote{Linux Apache MySQL PHP}
@@ -139,8 +139,6 @@ utilisée.
 \end{figure}
 
 
-
-
 \section{Le cloud computing\index{Cloud Computing}}
 \subsection{Principe général}
 \paragraph*{}
@@ -232,11 +230,25 @@ La facturation est calculé à la seconde. Ce type d'offre est donc très pratiq
 
 \subsection{État actuel}
 \paragraph*{}
-\lipsum[1]
+Lorsqu'un client fait une demande de serveur, l'équipe doit:
+\begin{itemize}
+	\item Prendre un serveur dans le stock ou commander un.
+	\item Le personnaliser en fonction des besoins du clients: Ajouter de la RAM, des disques, des processeurs ...
+	\item Installer l'OS Debian dessus et le configurer
+	\item Emmener et "racker"\footnote{Terme que l'on utilise pour désigner l'installation d'une lame de serveur dans un rack (baie informatique). Voir l'annexe \ref{rack}} le serveur
+	dans le bon Data Center (DC).
+	\item Configurer les équipements réseaux et vérifier que tout fonctionne bien.
+\end{itemize}
+
+Ce processus est long et laborieux et n'est pas très flexible. Il n'est pas possible sans intervention physique sur la machine d'augmenter ou diminier sa puissance.
 
 \subsection{Objectif}
 \paragraph*{}
-\lipsum[1]
+L'objectif d'Alter Way Hosting est d'industrialiser/automatiser le processus de deployement et de mise à jour des serveurs.
+
+\paragraph*{}
+Depuis quelques années, l'industrie de l'hébergement informatique est en train de migrer vers une structure de type Cloud utilisant la Virtualisation.
+Cela permet de faire abstraction des problématiques matérielles.
 
 \subsection{Recherche de solutions}
 \paragraph*{}

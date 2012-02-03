@@ -13,7 +13,7 @@
 %\usepackage{color}
 \usepackage{makeidx}
 \usepackage{epstopdf}
-%\usepackage{multicol}
+\usepackage{multicol}
 %\usepackage{wrapfig}
 \usepackage{subfig}
 \usepackage{float}
@@ -33,10 +33,11 @@
 \pagestyle{fancy}
 \begin{document}
 
-\maketitle
-\tableofcontents
-
 \frontmatter
+\input{src/cover}
+\input{src/acknow}
+%\maketitle
+\tableofcontents
 \input{src/frontmatter}
 \mainmatter
 \input{src/mainmatter}
