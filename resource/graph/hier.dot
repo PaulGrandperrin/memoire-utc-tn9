@@ -15,28 +15,47 @@ digraph G
   js[label="{<f>Technicien Infrastructure|<nom>Julien Schilt}"];
   pg[label="{<f>Stagiaire|<nom>Paul Grandperrin}"];
   
- /* pdg -> la;
-  pdg -> sv;
-  pdg -> hl;
-  pdg -> cp;
-  pdg -> nb;
-  pdg -> dbls;
+  pdg -> la[lhead=cluster0];
+  pdg -> sv[lhead=cluster1];
+  pdg -> hl[lhead=cluster1];
+  pdg -> cp[lhead=cluster1];
+  pdg -> nb[lhead=cluster3];
+  pdg -> dbls[lhead=cluster2];
   la -> km;
   la -> yf;
   km -> vbr;
   km -> js;
   vbr -> pg;
-*/ 
-  subgraph AWH
+
+  subgraph cluster0
   {
     label="Hosting";
-    la->km;
-    la->yf;
-    km->vbr;
-    km->js;
-    vbr->pg;
+    la;
+		yf;
+    km;
+		js;
+    vbr;
+		pg;
   };
-  subgraph AWS {label="Solution"; sv; hl; cp;};
-  subgraph AWC {label="Creative"; dbls};
-  subgraph AWF {label="Formation"; nb;};
+
+  subgraph cluster1
+	{
+		label="Solution";
+		sv;
+		hl;
+		cp;
+	};
+
+  subgraph cluster2
+	{
+		label="Creative";
+		dbls
+	};
+	
+  subgraph cluster3
+	{
+		label="Formation";
+		nb;
+	};
+
 }
