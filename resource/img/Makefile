@@ -8,7 +8,8 @@ all : 	logo_utc.eps \
 	Diagramme_ArchiKernelUserSpace.eps \
 	Diagramme_ArchiHyperviseur.eps \
 	blade.eps \
-	DC.eps
+	DC.eps \
+	netapp_c3300.eps
 
 %.eps:
 	convert $*.png $*.eps
