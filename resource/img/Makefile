@@ -9,7 +9,8 @@ all : 	logo_utc.eps \
 	Diagramme_ArchiHyperviseur.eps \
 	blade.eps \
 	DC.eps \
-	netapp_c3300.eps
+	netapp_c3300.eps \
+	cisco-switch.eps
 
 %.eps:
 	convert $*.png $*.eps
