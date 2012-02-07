@@ -10,7 +10,8 @@ all : 	logo_utc.eps \
 	blade.eps \
 	DC.eps \
 	netapp_c3300.eps \
-	cisco-switch.eps
+	cisco-switch.eps \
+	live-migration.eps
 
 %.eps:
 	convert $*.png $*.eps
