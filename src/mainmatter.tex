@@ -1,7 +1,93 @@
 \part{Déroulement du stage}
 
+\paragraph*{}
+\lipsum[1]
 
 
+\chapter{Modification d'OpenNebula}
+
+\paragraph*{}
+Les premiers jours de mon stage ont été dédiés pour tester les logiciels OpenNebula et Xen sur une platforme de test
+composée d'un petit serveur accueillant OpenNebula, de deux machines utilisées comme hyperviseurs Xen et d'un NetApp.
+Vivien, pour responsable de stage, avait déjà déployé un environnement de développement fonctionnel sur ces machines.
+
+\paragraph*{}
+Afin de prendre en main la platforme, mon premier objectif à été de mettre à jour OpenNebula qui était en version 2.2 vers la version 3.0 Beta 1.
+Cette version 2.2 a été modifié par Vivien pour fonctionner avec un plugin qu'il a écrit pour ajouter le support de l'iSCSI pour déporter le stockages des images
+disque des VMs sur le NetApp.
+\\
+Il m'a donc fallu comprendre puis adapter le travail de Vivien. J'ai ensuite effectué beaucoup de tests pour valider le fonctionnement
+de la nouvelle solution et aussi en valider ma compréhension.
+\\
+Après avoir compris comment marchait OpenNebula de l'extérieur - en tant qu'utilisateur - j'ai téléchargé les sources et ai préparé un
+environnement de développement pour éditer, compiler\footnote{Étape de construction de l'exécutable du logiciel à partir des sources},
+débugger\footnote{Action de compiler et lancer un exécutable d'une certaine manière permettant de voir le fonctionnement interne de l'application
+pendant son fonctionnement pour comprendre et corriger des bugs}, installer et tester le logiciel.
+
+
+\paragraph*{}
+Pour l'ajout des fonctions de \emph{scale-in}, j'ai du en même temps regarder ce qui était techniquement possible au niveau de l'hyperviseur Xen qui
+sera utilisé comme backend\footnote{Un backend est la partie basse d'une architecture utilisé pour éffectuer des actions à l'extérieur du logiciel.
+Par opposition le frontend est la partie haute de l'architecture recevant les ordres de l'utilisateur et commandant les autres parties de l'architecture}
+par OpenNebula pour crééer les VMs sur un hyperviseur.
+
+\paragraph*{}
+En effet, en fonction des différentes version du noyau Linux et de Xen, certaines fonctionnalités sont disponibles, indisponibles ou buggés.\\
+J'ai donc fait un tableau LibreOffice Calc\footnote{Logiciel open source concurrent de Microsoft\textsuperscript{\textregistered} Excel\texttrademark}
+pour répertorier l'état de chaques fonctionnalités en fonction de toutes les combinaisons de versions possibles.
+\\
+Grâce à ce tableau, nous avons pu déterminer quelles étaient les fonctionnalités nous utiliserons et par déduction quelles versions de logiciels nous
+installerons.
+
+\paragraph*{}
+Après avoir expérimenté avec la base de code d'OpenNebula nous avons fait des dessins d'architecture et une déterminé une procedure pour mettre en oeuvre ces
+modifications.
+\\
+L'objectif était de commencer par s'occuper des modifications de la gestion du stockage puis d'ajouter le support du \emph{scale in}.
+
+\section{La gestion du stackage des images disque}
+\paragraph*{}
+Pour l'instant OpenNebula considère que les images disque des VMs sont soit stockées en local sur l'hyperviseur soit partagées sur un répertoire NFS
+	\footnote{NFS: Network File System, est un système de fichier qui permet d'accèder à des fichiers via le réseau. Plusieurs clients peuvent accèder
+	au mêmes fichiers en même temps. Ce système ressemble au protocole SMB de Microsoft\textsuperscript{\textregistered}}\index{NFS}
+.
+Vivien à aussi écrit un plugin OpenNebula pour partager les images disque via l'iSCSI - plus performant que le NFS pour ce type d'utilisation.
+\\
+Dans tout les cas, OpenNebula n'a pas été designé pour gérer plusieurs serveurs de stockage et répartir les images disque dessus.
+\\
+Les deux objets les plus important manipulés par OpenNebula sont les \emph{Hosts} et les VMs. Un \emph{Host} est le nom utilisé par OpenNebula pour
+désigner un hyperviseur.
+Un \emph{Host} contient donc zéro ou plusieurs VMs et une VM a forcément un et un seul \emph{Host} associé.
+
+
+\paragraph*{}
+Notre objectif serait de faire la même relation entre les images disques vs les serveurs de stockage et les VMs vs les \emph{Hosts}.
+\\
+OpenNebula n'a pour l'instant pas la notion de ce qu'est un serveur de stockage. Une image disque est juste un attribut d'une VM et n'a
+pas de propriété faite pour désigner sur quel serveur de stockage elle se trouve.
+
+\paragraph*{}
+Nous avons donc créée dans le code d'OpenNebula un nouveau type d'objet appelé \emph{storage backend}, littéralement << object de gestion du stockage >>.
+
+
+
+\paragraph*{}
+
+
+\begin{lstlisting}
+oneadmin@opennebula:~$ onehost list
+  ID NAME               RVM   TCPU   FCPU   ACPU   TMEM   FMEM   AMEM   STAT
+   0 hyp1                 1    400    399    300     4G   2.7G   3.9G     on
+   1 hyp2                 2    400    399    100     4G   1.2G   3.2G     on
+\end{lstlisting}
+
+\begin{lstlisting}
+oneadmin@opennebula:~$ onevm list
+ID USER     GROUP    NAME         STAT CPU     MEM        HOSTNAME        TIME
+ 0 oneadmin oneadmin vm1          runn   1    256M            hyp2 08 03:36:24
+ 1 oneadmin oneadmin vm2          runn   4   2048M            hyp2 00 00:01:38
+ 2 oneadmin oneadmin vm3          runn   2    128M            hyp1 00 00:01:00
+\end{lstlisting}
 
 \begin{pygmented}{c}
 void main(int argc, char* argv[])

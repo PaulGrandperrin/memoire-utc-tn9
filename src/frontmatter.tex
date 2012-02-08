@@ -92,8 +92,8 @@ AWH est organisé en quatres équipes affectées à quatres types d'offres diff�
 \paragraph*{}
 La virtualisation consiste à faire fonctionner un logiciel ou un système d'exploitation (SE) dans un environnement simulé/virtuel.
 \\
-Normalement un logiciel est éxécutée par le processeur (CPU) de l'ordinateur. Dans le cas de la virtualisation au niveau logiciel,
-ce logiciel ne sera pas éxécuté directement par un vrai CPU mais par un autre logiciel appelé gestionnaire de machine virtuelle.
+Normalement un logiciel est exécutée par le processeur (CPU) de l'ordinateur. Dans le cas de la virtualisation au niveau logiciel,
+ce logiciel ne sera pas exécuté directement par un vrai CPU mais par un autre logiciel appelé gestionnaire de machine virtuelle.
 \\
 Dans le cas de la virtualisation d'un OS (appelé virtualisation matérielle, plusieurs solutions sont possible. La solution la plus basique est de simuler l'intégralité
 de l'ordinateur: le CPU, le disque dur, la carte réseau, l'écran, la souris, le clavier ect.
@@ -271,7 +271,7 @@ il faudrait que les clients ou les commerciaux puissent directement commander et
 \subsubsection{Fonctionnalités désirés}
 
 \begin{listi}
-	\item Créer et supprimer des VMs sans se soucier de l'endroit exacte ou elles seront réellement éxécutées (principe de base Cloud).
+	\item Créer et supprimer des VMs sans se soucier de l'endroit exacte ou elles seront réellement exécutées (principe de base Cloud).
 	\item Redimmentionner une VM à chaud (en cours de fonctionnement).\\
 		Les propriétés que l'on souhaite pouvoir modifier:
 		\subitem Quantité de mémoire vive (RAM)
@@ -359,7 +359,9 @@ plus apte à être modifié.
 
 \section{Sujet initial}
 \paragraph*{}
-Mon sujet de stage était d'étudier le logiciel OpenNebula et de le modifier afin d'ajouter le \emph{scale-in} et une gestion plus souple des images disque.
+Mon sujet de stage était d'étudier le logiciel OpenNebula et de le modifier afin d'ajouter le \emph{scale in}\index{Scale In}\footnote{Le \emph{scale in} consiste à
+modifier la puissance disponible à un client en redimentionnant sa VM. Par opposition le \emph{scale out} répond au même besoin en multipliant le nombre de VM avec le même logiciel
+installé. Pour faire du \emph{scale out}\index{Scale out} il faut au préalable un environnement logiciel adapté.} et une gestion plus souple des images disque.
 
 Voici la liste des objectifs:
 
