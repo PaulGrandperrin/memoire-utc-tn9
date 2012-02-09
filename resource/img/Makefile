@@ -11,7 +11,12 @@ all : 	logo_utc.eps \
 	DC.eps \
 	netapp_c3300.eps \
 	cisco-switch.eps \
-	live-migration.eps
+	live-migration.eps \
+	sunstone-createvm.eps \
+	sunstone-dashboard.eps \
+	sunstone-hosts.eps \
+	sunstone-createtemplate.eps \
+	
 
 %.eps:
 	convert $*.png $*.eps
