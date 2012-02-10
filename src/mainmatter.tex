@@ -41,15 +41,20 @@ OpenNebula peut être piloté via plusieurs interfaces:
 \subsection{La CLI d'OpenNebula}
 \label{onecli}
 
-\subsubsection{L'affichage de la liste de tout les \emph{hosts}/hyperviseurs}
+\begin{figure}[H]
+\centering
 \begin{lstlisting}
 oneadmin@opennebula:~$ onehost list
   ID NAME               RVM   TCPU   FCPU   ACPU   TMEM   FMEM   AMEM   STAT
    0 hyp1                 1    400    399    300     4G   2.7G   3.9G     on
    1 hyp2                 2    400    399    100     4G   1.2G   3.2G     on
 \end{lstlisting}
+\caption{L'affichage de la liste de tout les \emph{hosts}/hyperviseurs}
+\end{figure}
 
-\subsubsection{L'affichage de la liste des VMs}
+
+\begin{figure}[H]
+\centering
 \begin{lstlisting}
 oneadmin@opennebula:~$ onevm list
 ID USER     GROUP    NAME         STAT CPU     MEM        HOSTNAME        TIME
@@ -57,6 +62,10 @@ ID USER     GROUP    NAME         STAT CPU     MEM        HOSTNAME        TIME
  1 oneadmin oneadmin vm2          runn   4   2048M            hyp2 00 00:01:38
  2 oneadmin oneadmin vm3          runn   2    128M            hyp1 00 00:01:00
 \end{lstlisting}
+\caption{L'affichage de la liste des VMs}
+\end{figure}
+
+
 
 \subsection{L'interface web Sunstone}
 
@@ -113,8 +122,7 @@ L'objectif était de commencer par s'occuper des modifications de la gestion du 
 \paragraph*{}
 Pour l'instant OpenNebula considère que les images disque des VMs sont soit stockées en local sur l'hyperviseur soit partagées sur un répertoire NFS
 	\footnote{NFS: Network File System, est un système de fichier qui permet d'accèder à des fichiers via le réseau. Plusieurs clients peuvent accèder
-	au mêmes fichiers en même temps. Ce système ressemble au protocole SMB de Microsoft\textsuperscript{\textregistered}}\index{NFS}
-.
+	au mêmes fichiers en même temps. Ce système ressemble au protocole SMB de Microsoft\textsuperscript{\textregistered}}\index{NFS}.
 Vivien à aussi écrit un plugin OpenNebula pour partager les images disque via l'iSCSI - plus performant que le NFS pour ce type d'utilisation.
 \\
 Dans tout les cas, OpenNebula n'a pas été designé pour gérer plusieurs serveurs de stockage et répartir les images disque dessus.
@@ -149,20 +157,94 @@ Ce nouvelle object à nécéssité énormément de modifications au code source 
 	\item Étendre le protocole XML/RPC et les outils de la CLI pour pouvoir administrer ces nouvelles fonctionnalités.
 	\item Documenter les modifications
 	\item Écrire des tests unitaires pour vérifier qu'il n'y a pas de régressions introduites.
+	\item Envoyer les modifictions à la communauté pour qu'elles soient introduites et maintenues officielement dans le projet.
 \end{enumerate}
 
 \section{Bilan}
 
+\subsection{Le problème}
+
 \paragraph*{}
+Après environ un mois de programmation sur OpenNebula, j'ai commencé à avoir des doutes sur la faisabilité du projet sur la durée du stage et
+aussi sur les chances que ces changements soit acceptés par la communauté.
 
+\paragraph*{}
+À ce stade, je commençais à avoir quelques partie de la nouvelle architecture qui fonctionnaient mais les changements apportés au étaient très
+conséquents et beaucoup plus dispercés que prévu. Nous pensions pouvoir limiter le périmètre des modifications pour que nos changements soient
+moins difficiles à vérifier et donc mieux acceptés \emph{upstream}.\\
+Voir un résumé des modifications apportées à OpenNebula en annexe \ref{modopennebula}
 
+\subsection{La remontée du problème}
 
+\paragraph*{}
+J'en ai donc parlé à mon tuteur de stage et nous avons réévalué la charge de travail restante et les chances que le projet soit accepté \emph{upstream}.
+Nous avons aussi préparé une présentation de l'état actuel des choses et des alternatives possibles en cas d'abandons du projet OpenNebula pour
+présenter au Chef de Projet d'Exploitation Kévin \textsc{Mazière} et au Directeur de Production Laurent \textsc{Alaguero}.
 
+\paragraph*{}
+Les alternatives possibles étaient soit d'écrire entièrement (\emph{from scratch}\footnote{littéralement: << depuis zéro >>}) un nouveau gestionnaire de
+cloud correspondant parfaitement à notre besoin et seulement à notre besoin ou d'acheter des licences VMWare\textsuperscript{\textregistered} qui pourraient
+convenir à notre besoin mais qui sont en désaccord avec l'esprit de l'entreprise (préférence des logiciels Open-Source).
 
+\subsection{La prise de décision}
+\paragraph*{}
+Suite à la réunion d'avancement du projet, il a été décidé de mettre en pause le développement sur OpenNebula et de lancer un
+POC\footnote{\index{POC}POC: \emph{Proof Of Concept}, Preuve de concept} de la méthode de développement << \emph{from scratch} >> .
 
 
 
 \chapter{Le projet H2O}
+\index{H2O}
+\paragraph*{}
+H2O est le nom de code du projet de création d'un nouveau gestionnaire de cloud.
+Grâce à notre expérience sur le projet OpenNebula, moi et Vivien avons pu très rapidement désigner une nouvelle architecture
+simple et robuste, basé sur le philosophie du KISS\footnote{KISS: \emph{Keep It Stupid Simple}, << Garde ça simple, stupide >>}.
+
+
+\section{Choix techniques}
+\paragraph*{}
+Nous avons choisi d'utiliser le langage de programmation Ruby pour le développement d'H2O. Ruby est un langage de très haut niveau
+\footnote{Un langage de haut niveau est un langage de programmation dont la grammaire permet de programmer sans tenir compte des détails inhérents au
+fonctionnement de l'ordinateur. Un langage de haut niveau permet de manipuler des concepts bien plus élaborés, mais empêche la gestion de certains détails.}
+Ce langage est très réputé pour sa productivité et la << beauté >> du code que l'on peut écrire avec. Son principal défault est sa grande lenteur d'exécution
+mais ce n'est pas un problème pour notre projet.
+
+\paragraph*{}
+Notre architecture est - tout comme OpenNebula - séparé en plusieurs modules, mais à la différence de celui ci nous avons choisi de faire que toutes les actions soient gérés
+de manière séquenciel synchrone.\\ %Oui c'est un peut redondant mais c'est pour être sur que le lecteur comprenne.
+Encore une fois ce type de fonctionnement n'est pas optimal au niveau des performances, mais nous avons estimé que si nous déployeons pas plus d'une centaine de VMs à
+l'heure ça ne devrait pas poser de problème.
+Tout gérer de manière synchrome permet de simplifier drastiquement la machine à état du programme, la gestion des erreurs, la complexité globale du code et le déboggage
+du programme.
+
+\paragraph*{}
+Un autre choix important que nous avons pris est de faire passer toutes les communications entre les modules par une base de donnée (BDD\index{BDD})
+SQL\footnote{\index{SQL}SQL: \emph{Structured Query Language} est un langage permettant de faire des requêtes dans une base de donnée structurée} (MySQL ou SQLite).
+Celà permet de ne pas avoir à créer de protocole de communication entre les différents modules et garanti qu'à tout moment en cas de panne système (coupure électrique
+par exemple) l'état du cloud soit enregistré dans la BDD.
+
+\section{Développement}
+
+\paragraph*{}
+Pour le développement nous avons avec Vivien créé un dépôt GIT\index{GIT}\footnote{GIT est un gestionnaire de version décentralisé. Ce logiciel permet de travailler à plusieurs
+sur les sources d'un logiciel et de garder un historique de toutes les révisions des sources du logiciel. Ce logiciel est utilisé par les 1200 développeurs du noyau Linux}
+
+\paragraph*{}
+Nous avons travaillé à deux, moi et Vivien, à plein temps sur ce projet. C'était très intéressant et nous sommes très rapidement arrivés à une démo fonctionnelle avec une bonne
+qualité de code.
+\\
+Voici les fonctionnalités que nous avons implémenté après trois semaines:
+\begin{listi}
+	\item Gestion des hyperviseurs : enregistrement, désenregistrement, monitoring, vérification du bon fonctionnement...
+	\item Gestion des VMs: création, suppression, live-migration, affichage des informations ...
+	\item Live Migration entre deux hyperviseurs
+	\item Gestion indépendante des images disques et cartes réseau et archives d'OS
+	\item Hotplug de mémoire RAM et de VCPUs et nouvelles images disque
+	\item Redimentionnent d'images disque à chaud
+	\item Gestion indépendante
+	\item Interface en CLI uniquement. Voir annexe \ref{CLIH2O}.
+\end{listi}
+
 
 
 

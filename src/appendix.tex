@@ -29,7 +29,7 @@
 \end{figure}
 
 \chapter{Résumé des changement apportés à OpenNebula pour l'ajout de la gestion \emph{storage sackend}}
-
+\label{modopennebula}
 \begin{lstlisting}
  SConstruct                                     |    6 +-
  include/AuthManager.h                          |    4 +-
@@ -125,7 +125,9 @@
  91 files changed, 3471 insertions(+), 299 deletions(-)
 \end{lstlisting}
 
-\chapter{Statistiques d'H2O Phase 2}
+\chapter{H2O}
+
+\section{Résumé du code développé}
 
 \begin{lstlisting}
  bin/h2o-archive            |  181 +++++++++++++
@@ -176,6 +178,147 @@
  45 files changed, 6258 insertions(+), 0 deletions(-)
 \end{lstlisting}
 
+\section{La \emph{Command Line Interface}}
+\label{CLIH2O}
+\subsection{Interface de gestion de cluster}
+
+\begin{lstlisting}
+paulg@debian-pro:~/projects/h2o$ ./bin/h2o-cluster list
+=>Argument Error<=
+The first argument must be an action
+
+
+Possible actions:
+        register-hyp <cluster-id> <driver> <hostname> <ssh-user> <ssh-host>
+        register-blockpool <cluster-id> <driver> <name> <target-ip> <management-ip> <management-user>
+        register-cluster <name> <archive_pool_ip> <archive_pool_user>
+        list-hyp [--cluster <id>] [--show-destroyed]
+        list-blockpool [--cluster <id>] [--show-destroyed]
+        list-cluster [--show-destroyed]
+        unregister-hyp <id>
+        unregister-blockpool <id>
+        unregister-cluster <id>
+        lock-cluster <id>
+        lock-hyp <id>
+        lock-blockpool <id>
+        unlock-cluster <id>
+        unlock-hyp <id>
+        unlock-blockpool <id>
+        unload-hypervisor <id>
+        clear-error-cluster <id>
+        clear-error-hyp <id>
+        clear-error-blockpool <id>
+        retry-cluster <id>
+        retry-hyp <id>
+        retry-blockpool <id>
+        set-tag-hyp <id> [[+|-]<tag> ...]
+        set-tag-blockpool <id> [[+|-]<tag> ...]
+        show-hyp <id>
+        show-blockpool <id>
+
+Global optional arguments
+        --raw : Print results formated for easy scripting
+        --override: Disable most checks when trying to do the action
+        --force: Will try harder to do the action
+        --wait: Wait for the action to finish before returning
+\end{lstlisting}
+
+\subsection{Interface de gestion de VMs}
+
+\begin{lstlisting}
+paulg@debian-pro:~/projects/h2o$ ./bin/h2o-vm
+=>Argument Error<=
+The first argument must be an action
+
+
+Possible actions:
+        create <clusterId> <name>
+        destroy <id>
+        start <id>
+        halt <id>
+        reboot <id>
+        mem-set <id> <size> #The memory size is in megabytes
+        maxmem-set <id> <size> #The max memory size is in megabytes
+        vcpu-set <id> <vcpu count>
+        maxvcpu-set <id> <max vcpu count>
+        show <id>
+        list [--cluster <clusterId>] [--hyp <hypId>] [--show-destroyed]
+        livemigrate <id> <hypervisorId>
+        attach-block <id> <blockId>
+        detach-block <id> <blockId>
+        attach-vif <id> <vifId>
+        detach-vif <id> <vifId>
+        #create-if <vmId> <mac> <vlan> [--ip]... [--bandwidth] #TODO
+        #destroy-if <vmId> <mac> #TODO
+        pin <mvId> <hypervisorId>
+        unpin <vmId>
+        lock <id>
+        unlock <id>
+        clear-error <id>
+        retry <id>
+        set-tag <id> [[+|-]<tag> ...]
+
+Global optional arguments
+        --raw : Print results formated for easy scripting
+        --override: Disable most checks when trying to do the action
+        --force: Will try harder to do the action
+        --wait: Wait for the action to finish before returning
+\end{lstlisting}
+
+\subsection{Interface de gestion des images disques (appelés blocks)}
+
+\begin{lstlisting}
+paulg@debian-pro:~/projects/h2o$ ./bin/h2o-block
+=>Argument Error<=
+The first argument must be an action
+
+
+Possible actions:
+        allocate <clusterId> <name> <size>
+        clone <name> <parentBlockId>
+        unpack <archiveId> <blockName> <size> <fsType:fsOptions>
+        pack <blockId> <archiveName>
+        deploy <id>
+        list [--cluster <id>] [--show-destroyed]
+        destroy <id>
+        resize <id> <newSize> #The new size is in MB
+        volatile <id>
+        persistant <id>
+        lock <id>
+        unlock <id>
+        clear-error <id>
+        retry <id>
+        set-tag <id> [[+|-]<tag> ...]
+
+Global optional arguments
+        --raw : Print results formated for easy scripting
+        --override: Disable most checks when trying to do the action
+        --force: Will try harder to do the action
+        --wait: Wait for the action to finish before returning
+\end{lstlisting}
+
+\subsection{Interface de gestion des archives d'OS}
+
+\begin{lstlisting}
+paulg@debian-pro:~/projects/h2o$ ./bin/h2o-archive
+=>Argument Error<=
+The first argument must be an action
+
+
+Possible actions:
+        list [--cluster <id>] [--show-destroyed]
+        show <id>
+        upload <clusterId> <archiveName> <uri>
+        (download <archiveId> <uri>)
+        destroy <id>
+        rename <archiveId> <newArchiveName>
+
+Global optional arguments
+        --raw : Print results formated for easy scripting
+        --override: Disable most checks when trying to do the action
+        --force: Will try harder to do the action
+        --wait: Wait for the action to finish before returning
+\end{lstlisting}
 
 \chapter{Benchmark des I/Os disque sous Xen}
 

@@ -36,12 +36,13 @@ end
 rfd.close
 wfd.close
 
-def plot(infile, outfile)
+def plot(infile, outfile, write)
+		write_ratio=4
     IO.popen("gnuplot", "w") do |gnuplot|
         str = <<-EOF
             set title "Iozone performance"
             set terminal postscript
-            set palette defined (0 "blue",1400 "green", 2100 "yellow", 3000 "red", 3600 "black")
+            set palette defined (0 "blue",#{1400/(write ? write_ratio : 1)} "green", #{2100/(write ? write_ratio : 1)} "yellow", #{3000/(write ? write_ratio : 1)} "red", #{3600/(write ? write_ratio : 1)} "black")
             set grid lt 0.5 lw 0.5 lc rgb "black"
             set surface
             set parametric
@@ -50,8 +51,8 @@ def plot(infile, outfile)
             set ytics
             set logscale x 2
             set logscale y 2
-            set zrange [0:3600]
-            set cbrange [0:3600]
+            set zrange [0:#{3600/(write ? write_ratio : 1)}]
+            set cbrange [0:#{3600/(write ? write_ratio : 1)}]
             set xlabel "Taille du fichier en KB"
             set ylabel "Taille des I/O en KB"
             set zlabel "MB/s"
@@ -69,6 +70,6 @@ def plot(infile, outfile)
 end
 
 sleep 1
-plot readdata, readdata + ".eps"
-plot writedata, writedata + ".eps"
+plot readdata, readdata + ".eps", false
+plot writedata, writedata + ".eps", true
 
