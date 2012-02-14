@@ -1,0 +1,80 @@
+digraph G
+{
+	compound=true;
+	node [shape = record,height=0.1];
+
+subgraph cluster0
+{
+	label="CLI (Ruby)";
+	subgraph cluster2
+	{
+		label="Commandes";
+		onevm;
+		onehost;
+		oneimage;
+	}
+
+	subgraph cluster3
+	{
+		label="Helpers";
+		onevmhelper;
+		onehosthelper;
+		oneimagehelper;
+	}
+
+	onevm->onevmhelper;
+	onehost->onehosthelper;
+	oneimage->oneimagehelper;
+
+	onevmhelper->opennebula;
+	onehosthelper->opennebula;
+	oneimagehelper->opennebula;
+
+}
+
+subgraph cluster1
+  {
+	label="Core (C++)";
+	rm[label="Request Manager"];
+	dm[label="Dispatch Manager"];
+	lcm[label="Life Cycle Manager"];
+	vmm[label="Virtual Machine Manager"];
+	hm[label="Host Manager"];
+	hmmad[label="Host Manager Driver"];
+	vm1[label="Virtual Machine 1"];
+	h1[label="Host 1"];
+	hi1[label="History"];
+
+
+
+
+	rm->dm;
+	dm->lcm;
+	lcm->vmm;
+	vmm->hm;
+	vmm->vm1;
+	vm1->hi1;
+	hm->h1;
+	hm->hmmad;
+
+  }
+
+	subgraph cluster4
+{
+	label="Plugin (Ruby/Shell)";
+	xd[label="Xen Driver"];
+
+	xd->deploy;
+	xd->delete;
+	xd->migrate;
+	xd->monitor;
+	xd->scale;
+}
+
+
+	hmmad->xd;
+	opennebula->rm;
+	bdd[label="Base de donnée",shape=ellipse];
+	vm1->bdd;
+
+}

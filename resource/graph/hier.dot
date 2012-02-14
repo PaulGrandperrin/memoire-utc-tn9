@@ -14,7 +14,7 @@ digraph G
   vbr[label="{<f>Ingénieur Système et Réseaux|<nom>Vivien Bernet-Rollande}"];
   js[label="{<f>Technicien Infrastructure|<nom>Julien Schilt}"];
   pg[label="{<f>Stagiaire|<nom>Paul Grandperrin}"];
-  
+
   pdg -> la[lhead=cluster0];
   pdg -> sv[lhead=cluster1];
   pdg -> hl[lhead=cluster1];
@@ -51,7 +51,7 @@ digraph G
 		label="Creative";
 		dbls
 	};
-	
+
   subgraph cluster3
 	{
 		label="Formation";

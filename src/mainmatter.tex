@@ -210,7 +210,7 @@ Ce langage est très réputé pour sa productivité et la << beauté >> du code 
 mais ce n'est pas un problème pour notre projet.
 
 \paragraph*{}
-Notre architecture est - tout comme OpenNebula - séparé en plusieurs modules, mais à la différence de celui ci nous avons choisi de faire que toutes les actions soient gérés
+Notre architecture est -- tout comme OpenNebula -- séparé en plusieurs modules, mais à la différence de celui ci nous avons choisi de faire que toutes les actions soient gérés
 de manière séquenciel synchrone.\\ %Oui c'est un peut redondant mais c'est pour être sur que le lecteur comprenne.
 Encore une fois ce type de fonctionnement n'est pas optimal au niveau des performances, mais nous avons estimé que si nous déployeons pas plus d'une centaine de VMs à
 l'heure ça ne devrait pas poser de problème.
@@ -245,20 +245,98 @@ Voici les fonctionnalités que nous avons implémenté après trois semaines:
 	\item Interface en CLI uniquement. Voir annexe \ref{CLIH2O}.
 \end{listi}
 
+\section{Bilan}
+
+\paragraph*{}
+Après trois semaines de développement intensif nous avons jugé que nous étions prêt à faire notre démonstration à M. Alaguero, M. Mazière et un responsable commercial
+M. Simonin.
+
+\paragraph*{}
+La démonstration s'est bien passé et tout le monde était très satisfait de ce que nous avions réussi à développer.
+
+\paragraph*{}
+Le problème c'est que durant la période de développement, Vivien, mon tuteur de stage, nous a annoncé qu'il quitterai la société fin décembre. Il a eu une proposition très intéressante
+qu'il a accepté mais a déplacé le jour de son départ le plus tard possible, c'est à dire au 1\textsuperscript{er} janvier 2012.
+
+\paragraph*{}
+En attendant qu'une nouvelle personne puisse s'occuper de la maintenance de la cette solution après le départ de Viviene et de moi même, il m'a été demandé de mettre en pause ce projet
+et de revenir sur le projet de \emph{scale-in} d'OpenNebula comme solution complémentaire à H2O.
 
 
-
-\chapter{Le projet Kanopya}
+\chapter{Le projet OpenNebula \emph{phase 2}}
 
 \section{Présentation}
+\paragraph*{}
+Une fois le projet H2O complété mais en attente de mainteneur, il a été jugé utile de profiter de mon expérience sur le code source d'OpenNebula pour lui ajouter
+le support du \emph{scale-in}, moins compliqué à implémenter.
+
+\paragraph*{}
+Ce travail était déjà prévu à l'origine du stage mais était moins priotitaire que le support de multiple \emph{storage backend}.
+L'ajout du \emph{scale-in} n'est pas dépendant de cet ancien travail mais toujours aussi utile.\\
+
+\section{Développement}
+\paragraph*{}
+Le début du développement a commencé après le départ de Vivien et c'est Kevin qui a pris la responsabilité de devenir mon responsable de stage.
+Je me suis basé sur la dernière version stable d'OpenNebula, la version 3.2.
+
+\paragraph*{}
+J'ai tout d'abord fait une liste très précise de tout les modules du code source à modifier et à écrire. Pour chacunes de ces étapes, j'ai essayé de déterminer
+la charge de travail à effectuer, les risques associés et alternatives en cas de problème.
+
+\paragraph*{}
+Voici un aperçu très simplifié du code source d'OpenNebula qui ne contient que les composants principaux que nous devons modifier pour ajouter le \emph{scale-in}: \ref{archionescalein}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{resource/graph/ONE}
+\caption{Les composants de l'architecture d'OpenNebula qui seront modifiés pour le support du \emph{scale-in}\\}
+Les flêches représentent le sens du passage des messages dans le cas de l'exécution d'une commande par un utilisateur.
+\label{archionescalein}
+\end{figure}
+
+
+\paragraph*{}
+Pour reprendre la programmation sur OpenNebula, il m'a fallu réinstaller l'environnement de développement d'OpenNebula et redéployer notre architecture de test.
+Ensuite j'ai réussi très rapidement à me << replonger >> dans le code d'OpenNebula et à implémenter une permière version fonctionnelle mais incomplete du \emph{scale-in}.
+
+\paragraph*{}
+À ce stade du développement, j'avais quelques hésitations sur des questions de design. J'ai donc décidé de contacter la communauté OpenNebula pour les informer de l'existance
+du projet et leurs demander conseil.\\
+J'ai tout d'abors cherché à parler avec les développeurs sur IRC\footnote{\index{IRC}IRC: \emph{Internet Relay Chat}, protocole de messagerie instantané majoritairement utilisé
+par les développeurs de projets open-source.} sur leur salon officiel mais il n'y avait que très peu de monde et on m'a conseillé d'envoyer un mail sur la \emph{mailling-list} du
+projet.
+
+\paragraph*{}
+J'ai donc écris et envoyé ce mail et j'ai eu une réponse du \emph{Project Engineer} d'OpenNebula.\\
+L'échange de mail est disponible en annexe \ref{mailone}.
 
 
 \chapter{Autres travaux}
 
 \section{Conférence OpenStack}
+\paragraph*{}
+Le 21 septembre 2011, à peine plus de deux semaines après mon début de stage une conférence internationale sur le Cloud Computing s'est déroulée à Paris.
+Normalement Vivien \textsc{Bernet-Rollande} et Kevin \textsc{Mazière} devaient participer à cette conférence mais Kevin n'a finalement pas pu venir et c'est donc
+moi qui est pris sa place.
+
+\paragraph*{}
+Moi et Vivien nous somme donc rendu à la conférence à Paris.
+Il y avait une cinquantaine de participant et une dixaine de présentations réparties sur toute la journée avec un petit buffet entre midi et deux.
+
+\paragraph*{}
+La conférence étaient organisée par Rackspace pour la promotion de leur solution OpenStack. Plusieurs partenaires au projet étaient présent dont Dell, Canonical (Société derrière
+le système d'exploitation Ubuntu), UShareSoft, eNovance et OW2.
+
+\paragraph*{}
+Les conférences étaient pour la plupart en anglais mais je comprends très bien l'anglais technique et j'ai pu apprendre et noter plein de choses qui m'ont été très utile
+pour la suite de mon stage.\\
+C'est aussi lors du moment des questions sur OpenStack que nous avons pu demander directement à un des manageurs principal du projet pourquoi les solutions actuelles de Cloud
+étaient si peu adaptées à nos problématiques. Voir chapitre \ref{cloudissues}.
+
 
 \section{Projet STERN}
-
+\paragraph*{}
+Mi-octobre Kevin \textsc{Mazière} a eu pour mission de trouver des idées innovantes de projet en rapport avec le Cloud Computing.
 
 \section{Déployement automatisé de site web Symfony 2}
 
@@ -273,5 +351,10 @@ void main(int argc, char* argv[])
 	return 0;
 }
 \end{pygmented}
+
+
+
+
+
 
 \cite{test}
