@@ -16,6 +16,7 @@ all : 	logo_utc.eps \
 	sunstone-dashboard.eps \
 	sunstone-hosts.eps \
 	sunstone-createtemplate.eps \
+	ceph-architecture.eps
 	
 
 %.eps:

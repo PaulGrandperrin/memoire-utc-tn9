@@ -1,6 +1,6 @@
 \part{Annexe}
 
-\chapter{Photos illustratives d'Ã©quipements informatique}
+\chapter{Photos illustratives d'équipements informatique}
 
 \begin{figure}[H]
 	\centering
@@ -28,7 +28,7 @@
 	\label{datacenter}
 \end{figure}
 
-\chapter{RÃ©sumÃ© des changement apportÃ©s Ã  OpenNebula pour l'ajout de la gestion \emph{storage sackend}}
+\chapter{Résumé des changement apportés à OpenNebula pour l'ajout de la gestion \emph{storage sackend}}
 \label{modopennebula}
 \begin{lstlisting}
  SConstruct                                     |    6 +-
@@ -127,7 +127,7 @@
 
 \chapter{H2O}
 
-\section{RÃ©sumÃ© du code dÃ©veloppÃ©}
+\section{Résumé du code développé}
 
 \begin{lstlisting}
  bin/h2o-archive            |  181 +++++++++++++
@@ -265,7 +265,7 @@ Global optional arguments
         --wait: Wait for the action to finish before returning
 \end{lstlisting}
 
-\subsection{Interface de gestion des images disques (appelÃ©s blocks)}
+\subsection{Interface de gestion des images disques (appelés blocks)}
 
 \begin{lstlisting}
 paulg@debian-pro:~/projects/h2o$ ./bin/h2o-block
@@ -323,7 +323,7 @@ Global optional arguments
 \chapter{Benchmark des I/Os disque sous Xen}
 
 \paragraph*{}
-Ces benchmarks ont Ã©tÃ© rÃ©alisÃ©s dans le but l'impact des diffÃ©rentes versions du noyau linux
+Ces benchmarks ont été réalisés dans le but l'impact des différentes versions du noyau linux
 (en DomU) sur les performances d'I/O disque des VM Xen.
 
 
@@ -331,63 +331,63 @@ Ces benchmarks ont Ã©tÃ© rÃ©alisÃ©s dans le but l'impact des diffÃ©rentes versio
 \centering
 \subfloat[Linux 2.6.32-xen / Lecture]
 	{\includegraphics[angle=-90,width=0.5\textwidth]{resource/plot/iozone-2_6_32-debian-xen-withoutcache-withoutbarrier_out_reads}}
-\subfloat[Linux 2.6.32-xen / Ã‰criture]
+\subfloat[Linux 2.6.32-xen / Écriture]
 	{\includegraphics[angle=-90,width=0.5\textwidth]{resource/plot/iozone-2_6_32-debian-xen-withoutcache-withoutbarrier_out_writes}}
 \\
 \subfloat[Linux 3.1 / Lecture]
 	{\includegraphics[angle=-90,width=0.5\textwidth]{resource/plot/iozone-3_1-linus-withoutcache-withoutbarrier_out_reads}}
-\subfloat[Linux 3.1 / Ã‰criture]
+\subfloat[Linux 3.1 / Écriture]
 	{\includegraphics[angle=-90,width=0.5\textwidth]{resource/plot/iozone-3_1-linus-withoutcache-withoutbarrier_out_writes}}
 \\
 \subfloat[Linux 3.2 / Lecture]
 	{\includegraphics[angle=-90,width=0.5\textwidth]{resource/plot/iozone-3_2-linus-withoutcache-withoutbarrier_out_reads}}
-\subfloat[Linux 3.2 / Ã‰criture]
+\subfloat[Linux 3.2 / Écriture]
 	{\includegraphics[angle=-90,width=0.5\textwidth]{resource/plot/iozone-3_2-linus-withoutcache-withoutbarrier_out_writes}}
 
-\caption{Cache d'Ã©criture: \textbf{dÃ©sactivÃ©}   -   BarriÃ¨re d'Ã©criture: \textbf{dÃ©sactivÃ©e}}
+\caption{Cache d'écriture: \textbf{désactivé}   -   Barrière d'écriture: \textbf{désactivée}}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \subfloat[Linux 2.6.32-xen / Lecture]
 	{\includegraphics[angle=-90,width=0.5\textwidth]{resource/plot/iozone-2_6_32-debian-xen-withcache-withoutbarrier_out_reads}}
-\subfloat[Linux 2.6.32-xen / Ã‰criture]
+\subfloat[Linux 2.6.32-xen / Écriture]
 	{\includegraphics[angle=-90,width=0.5\textwidth]{resource/plot/iozone-2_6_32-debian-xen-withcache-withoutbarrier_out_writes}}
 \\
 \subfloat[Linux 3.1 / Lecture]
 	{\includegraphics[angle=-90,width=0.5\textwidth]{resource/plot/iozone-3_1-linus-withcache-withoutbarrier_out_reads}}
-\subfloat[Linux 3.1 / Ã‰criture]
+\subfloat[Linux 3.1 / Écriture]
 	{\includegraphics[angle=-90,width=0.5\textwidth]{resource/plot/iozone-3_1-linus-withcache-withoutbarrier_out_writes}}
 \\
 \subfloat[Linux 3.2 / Lecture]
 	{\includegraphics[angle=-90,width=0.5\textwidth]{resource/plot/iozone-3_2-linus-withcache-withoutbarrier_out_reads}}
-\subfloat[Linux 3.2 / Ã‰criture]
+\subfloat[Linux 3.2 / Écriture]
 	{\includegraphics[angle=-90,width=0.5\textwidth]{resource/plot/iozone-3_2-linus-withcache-withoutbarrier_out_writes}}
 
-\caption{Cache d'Ã©criture: \textbf{activÃ©}   -   BarriÃ¨re d'Ã©criture: \textbf{dÃ©sactivÃ©e}}
+\caption{Cache d'écriture: \textbf{activé}   -   Barrière d'écriture: \textbf{désactivée}}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \subfloat[Linux 2.6.32-xen / Lecture]
 	{\includegraphics[angle=-90,width=0.5\textwidth]{resource/plot/iozone-2_6_32-debian-xen-withcache-withbarrier_out_reads}}
-\subfloat[Linux 2.6.32-xen / Ã‰criture]
+\subfloat[Linux 2.6.32-xen / Écriture]
 	{\includegraphics[angle=-90,width=0.5\textwidth]{resource/plot/iozone-2_6_32-debian-xen-withcache-withbarrier_out_writes}}
 \\
 \subfloat[Linux 3.1 / Lecture]
 	{\includegraphics[angle=-90,width=0.5\textwidth]{resource/plot/iozone-3_1-linus-withcache-withbarrier_out_reads}}
-\subfloat[Linux 3.1 / Ã‰criture]
+\subfloat[Linux 3.1 / Écriture]
 	{\includegraphics[angle=-90,width=0.5\textwidth]{resource/plot/iozone-3_1-linus-withcache-withbarrier_out_writes}}
 \\
 \subfloat[Linux 3.2 / Lecture]
 	{\includegraphics[angle=-90,width=0.5\textwidth]{resource/plot/iozone-3_2-linus-withcache-withbarrier_out_reads}}
-\subfloat[Linux 3.2 / Ã‰criture]
+\subfloat[Linux 3.2 / Écriture]
 	{\includegraphics[angle=-90,width=0.5\textwidth]{resource/plot/iozone-3_2-linus-withcache-withbarrier_out_writes}}
 
-\caption{Cache d'Ã©criture: \textbf{activÃ©}   -   BarriÃ¨re d'Ã©criture: \textbf{activÃ©e}}
+\caption{Cache d'écriture: \textbf{activé}   -   Barrière d'écriture: \textbf{activée}}
 \end{figure}
 
-\chapter{Ã‰change de mail sur la \emph{mailing-list} d'OpenNebula}
+\chapter{Échange de mail sur la \emph{mailing-list} d'OpenNebula}
 
 \subsection{Mon mail}
 \begin{lstlisting}
@@ -525,4 +525,34 @@ OpenNebula - The Open Source Toolkit for Data Center Virtualization
 www.OpenNebula.org | cmartin@opennebula.org | @OpenNebula
 \end{lstlisting}
 
+
+\subsection{Le mail de retour sur le projet STERN de Systematics}
+\label{mailstern}
+\begin{lstlisting}
+Kevin Maziere <kevin.maziere@alterway.fr>	 Sat, Oct 22, 2011 at 4:04 PM
+To: "paul.grandperrin@alterway.fr" <paul.grandperrin@alterway.fr>
+Bravo !
+
+---------- Message transféré ----------
+De : "Laurent Séguin" <l.seguin@systematic-paris-region.org>
+Date : 22 oct. 2011 15:36
+Objet : Retour projet STERN
+À : "Kevin Maziere" <kevin.maziere@alterway.fr>, "Véronique Torner - Alterway" <veronique.torner@alterway.fr>, "Philippe Montarges - Alterway" <philippe.montarges@alterway.fr>
+Cc : "Stéfane Fermigier - PDT GT LL/Nuxeo" <sf@nuxeo.com>, "Roberto di Cosmo - VP GT LL/Paris7" <roberto@dicosmo.org>, "CARRE, PHILIPPE (PHILIPPE)" <philippe.carre@alcatel-lucent.com>, "Emmanuel Chailloux" <Emmanuel.Chailloux@lip6.fr>
+
+[en copie, les présidents et vice-présidents du Copil et du Coproj]
+
+Bonjour,
+
+Les comités de projets et de pilotage vous remercient d'avoir pris le temps de présenter votre projet et de le soumettre à labellisation par le groupe thématique logiciel libre.
+
+Votre projet a suscité un fort enthousiasme de la part des membres des Coproj et Copil et l'ont trouvé extrêmement pertinent et cohérent au vu de l'activité d'Alter Way hosting. A ce titre, plusieurs membres des deux instances vont activer leurs réseaux afin de vous aider à trouver (si possible avant mercredi) les chercheurs les plus pertinents, disponibles et intéressés par ce projet pour vous accompagner.
+Les pistes activées sont : l'INRIA, le LIP6, PPS, l'IRISA
+
+Je reste bien évidement à votre disposition pour toute question.
+--
+Laurent Séguin,
+Chef de projet du Groupe Thématique Logiciel Libre
+Tél. : 01 69 81 65 81 / Mob.: 06 47 96 11 92 / Fax : 01 69 41 69 19
+\end{lstlisting}
 

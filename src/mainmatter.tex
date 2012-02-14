@@ -313,7 +313,7 @@ L'échange de mail est disponible en annexe \ref{mailone}.
 
 \chapter{Autres travaux}
 
-\section{Conférence OpenStack}
+\section{La Conférence OpenStack}
 \paragraph*{}
 Le 21 septembre 2011, à peine plus de deux semaines après mon début de stage une conférence internationale sur le Cloud Computing s'est déroulée à Paris.
 Normalement Vivien \textsc{Bernet-Rollande} et Kevin \textsc{Mazière} devaient participer à cette conférence mais Kevin n'a finalement pas pu venir et c'est donc
@@ -334,9 +334,133 @@ C'est aussi lors du moment des questions sur OpenStack que nous avons pu demande
 étaient si peu adaptées à nos problématiques. Voir chapitre \ref{cloudissues}.
 
 
-\section{Projet STERN}
+\section{Le Projet STERN}
 \paragraph*{}
-Mi-octobre Kevin \textsc{Mazière} a eu pour mission de trouver des idées innovantes de projet en rapport avec le Cloud Computing.
+Mi-octobre Kevin \textsc{Mazière} a eu pour mission de trouver des idées innovantes de projet en rapport avec le Cloud Computing par le groupe \textsc{Systematic Paris Region}.
+
+\paragraph*{}
+Le groupe \textsc{Systematic Paris Region} a pour mission de financer publiquement des projets de R\&D français et européens. Si notre projet est retenu par ce comité, Alter Way
+recevrai des fonds pour développer le projet à condition que celui-ci soit rendu open-source.
+
+\paragraph*{}
+Ce projet pourait être intéressant pour Alter Way car l'entreprise pourrait profiter d'avoir plus d'ingénieurs en R\&D dans son équipe et profiterai de l'expérience acquise sur le
+projet en développement. Elle aurait une position privilégié sur une technologie innovante.\\
+Le projet est aussi interessant pour la communauté du Cloud Computing au sens plus large car l'accès au logiciel ainsi que son code source serai disponible à tous.
+
+
+\paragraph*{}
+Vivien étant en vacances à ce moment là et Kevin étant très occupé, on m'a demandé d'aider à trouver des idées.
+Je me suis donc beaucoup documenté sur les diverses technologies de stockage utilisées dans le Cloud et les divers type d'hyperviseur.
+\\
+Un plus serait de trouver des idées en rapport avec des besoins direct d'Alter Way.
+
+
+\subsection{Les technologies de stockages}
+\paragraph*{}
+Je me suis beaucoup renseigné sur les divers système de fichiers distribués parallèles à tolérance de panne.
+
+\paragraph*{}
+Un système de fichier distribué signifie qu'il est accessible par plusieurs clients en même temps.
+
+\paragraph*{}
+Ce type de système de fichier distribue les données sur sur plusieurs serveurs sur un réseau. L'avantage est qu'il est possible d'avoir d'énormes systèmes de fichier de plusieurs
+Pétaoctets (plusieurs millions de Gigaoctets).\\
+Les performances sont aussi très bonnes car la charges est répartie sur l'intégralité du cluster.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{resource/img/ceph-architecture}
+\caption{Architecture générale de Ceph, un système de fichier distribué tolérant aux fautes}
+\label{archionescalein}
+\end{figure}
+
+\paragraph*{}
+Un autre avantage important de répartir les données sur plusieurs serveurs est qu'en cas de panne d'un ou plusieurs serveurs, si il y a suffisement de redondances
+de données dans le cluster, il n'y aura pas d'interruption de service et le cluster répartira automatiquement la charge sur d'autres serveurs et redupliquera les données
+des serveurs en pannes. C'est ce qu'on appelle la tolérance aux fautes.\\
+Ensuite lors de l'ajout d'un nouveau serveur dans le cluster, le système de fichier placera automatiquement des données sur celui ci et lui affectera une
+partie de la charge du cluster.
+
+\paragraph*{}
+Pour résumer:
+\begin{description}
+	\item[Distribué] : accessible par plusieurs clients en même temps.
+	\item[Parallèle] : répartie les données et la charge sur plusieurs serveurs.
+	\item[Tolérant au fautes]: peut perdre un ou plusieurs \emph{node}/serveurs et en rajouter à chaud de manière transparente et automatique.
+\end{description}
+
+\paragraph*{}
+La première idée proposée au comité était de créer un nouveau système de fichier distribué parallèle tolérant aux fautes mais avec un design différent des implémentations actuelles
+comme GlusterFS, Lustre ou encore Ceph.
+
+
+\subsubsection{Les technologie de virtualisation par conteneur avec \emph{live-migration}}
+\paragraph*{}
+Une autre technologie qui pourrait être utile pour Alter Way en rapport avec le Cloud est la virtualisation par conteneur.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{resource/img/Diagramme_ArchiIsolateur}
+\caption{Archtecture de la virtualisation par conteneurmak/isolateur}
+\end{figure}
+
+\paragraph*{}
+La virtualisation par conteneur est très différente de la virtualisation matérielle ou paravirtualisée car seul les applications sont virtualisées.
+Toutes les applications tournent sur le même noyau mais celui-ci va simuler à chaques groupes de processus d'une VM qu'il ne fait tourner que ces processus
+et ne leurs permettra pas de communiquer avec les processus des autres VMs.
+
+\paragraph*{}
+Ce type de virtualisation permet d'utiliser la RAM de manière beaucoup plus efficiente que Xen par exemple car chaques VMs utilisent le même noyau qui n'utilise
+que la RAM nécéssaire pour chacuns des processus des VMs.
+\\
+Cela permet d'accumuler beaucoup plus de VMs sur un même serveur mais ces VMs auront moins de garanties de performances dans le cas ou toutes les VMs souhaitent utiliser
+en même temps beaucoup de RAM, ce qui posera une très grosse perte de performance voir l'arrêt pur et simple d'un ou plusieurs processus.
+
+\paragraph*{}
+Ce type de virtualisation est complémentaire au solution de virtualisation matérielle. La virtualisation matérielle est destiné aux clients exigeants ayant besoins de garanties
+de performance mais sera facturée plus à cause du nombre plus restraint de VMs que l'on peut héberger sur un serveur.
+\\
+La virtualisation par conteneur permet d'avoir une offre moins cher pour les clients moins exigeants.
+
+\paragraph*{}
+La principale limitation des containeurs est qu'aucune technologie open-source existante ne permet de faire des \emph{live-migration}, essenciels pour correctement répartir
+la charges entre les différents hyperviseurs d'un cluster de cloud.
+
+\paragraph*{}
+L'objectif du projet est donc d'ajouter le support de la live-migration sur la technologie de virtualisation la plus populaire du noyau Linux: LXC
+\footnote{LXC: \emph{LinuX Container}}.
+
+
+\subsubsection{La soumission des projets}
+\paragraph*{}
+D'autres idées ont été proposées à Kevin mais nous avons choisi de soumettre au comité les deux idées décritent précédemment.
+\\
+Après un premier retour du comité, il nous a été conseillé de concentrer nos effort de spécification sur la deuxième idée, plus réaliste au vu du budget qui sera alloué au projet.
+
+\paragraph*{}
+Nous avons donc avec Kevin rédigés un cahier des charges et une présentation du projet de \emph{live-migration} de conteneur, alors nommé STERN\index{STERN}\footnote{STERN: ??? ??? ?? ??, sterne est aussi le nom
+d'un oiseau.}
+
+\paragraph*{}
+Nous avons ensuite été convoqué à Paris dans les locaux de la société Open-Wide pour présenter notre projet au jury.
+\\
+Véronique \textsc{Torner} (Co-Présidente d'Alter Way), Hervé \textsc{Leclerc} (Directeur Technique), Kevin \textsc{Mazière} ainsi que moi-même nous sommes rendu sur place.
+
+\paragraph*{}
+Le jury était composé d'une quinzaine de personnes. Kevin a fait la présentation du projet et c'est moi-même qui répondait aux questions techniques du jury. Véronique \textsc{Torner}
+et Hervé \textsc{Leclerc} répondaient au questions relative à l'entreprise Alter Way.
+\\
+La présentation s'est bien passée et il y a eu des échanges de question-réponse très intéressants.
+
+
+\subsubsection{Résultat}
+\paragraph*{}
+Deux semaines après la présentation nous avons reçu un mail du groupe Systematic nous informant que notre projet à été choisi par le jury!\\
+Une copie du mail est disponible en annexe \ref{mailstern}.
+
+\paragraph*{}
+Malheusement pour des raisons budgetaires et organisationnelles non prévues, le projet n'a pas été continué.
+
 
 \section{Déployement automatisé de site web Symfony 2}
 
