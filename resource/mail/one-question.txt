@@ -1,0 +1,72 @@
+Paul Grandperrin <paul.grandperrin@alterway.fr>	 Mon, Feb 6, 2012 at 12:19 PM
+To: users@lists.opennebula.org
+Hi all,
+
+I'm implementing scale-in features in OpenNebula like live memory growth/shrinking and vcpus hotplugging/hotunplugging.
+
+You can see my git there: http://paulg.fr/gitweb/?p=one.git;a=summary;js=1
+My developement branch is feature-scalein. It's still very much a WIP most of the interesting code is there and basic features are functionnal on Xen at the moment.
+My dev branch is based on one-3.2 but can easily be rebased on master.
+
+Everything is meant to eventualy hit upstream, that why I'd like to get some advices and feedback from you.
+
+Here are my questions:
+
+1. About VM memory scaling: Currently, AFAIK the vm.memory is used when deploying a VM to set it's initial memory and then is regularly updated via hypervisor polling.
+    ATM, i'm also using this attribute to change memory size. I think it's really not the best way thing to do. I'd like to separate theses different things in separate variables.
+    For exemple:
+       -memory: the same as of now.
+       -memory_target: the target amount of memory when scaling memory.
+
+    I could also use VM history but I'm not very familiar with this class.
+
+2. When scalling the number of VCPUs, should we also scale the VM's cpu share? If so, how to implement it?
+
+3. In the case of a scalling failure (memory or vcpu), what should we do?
+   -Consider the VM failed and not usable anymore? (I think it's way too strict)
+   -Consider the VM still ACTIVE. However, how to inform the user about the failure (something else than writing in logs).
+    And then what should we do?
+       -immediatly throw a monitor request to update to the correct value?
+       -Consider the worst case: if scaling down the memory => consider the old value/ if scaling up the memory, consider the new value
+       -Other ideas?
+
+Any suggestions about the code structure, writing style, naming conventions, whatever... are welcome :D
+
+You can also see my TODO list here: http://paulg.fr/gitweb/?p=one.git;a=blob_plain;f=TODO;h=79c65a4a6eba19095a43191a75fc1e5d58d7e01a;hb=refs/heads/feature-scalein;js=1
+
+What changed:
+paulg@debian-pro:~/projects/one$ git diff one-3.2 --stat
+ TODO                                      |   12 ++
+ include/DispatchManager.h                 |   20 +++
+ include/LifeCycleManager.h                |   20 +++-
+ include/RequestManagerVirtualMachine.h    |   36 +++++
+ include/VirtualMachine.h                  |   43 +++++-
+ include/VirtualMachineManager.h           |   50 +++++--
+ include/VirtualMachineManagerDriver.h     |   50 +++++--
+ install.sh                                |    4 +-
+ share/man/onevm.1                         |   60 ++++++++
+ src/cli/one_helper.rb                     |    2 +-
+ src/cli/one_helper/onevm_helper.rb        |   24 +++
+ src/cli/onevm                             |   32 ++++
+ src/dm/DispatchManagerActions.cc          |   90 +++++++++++
+ src/lcm/LifeCycleActions.cc               |   68 +++++++++-
+ src/lcm/LifeCycleManager.cc               |   48 ++++++
+ src/lcm/LifeCycleStates.cc                |  123 +++++++++++++++
+ src/mad/ruby/VirtualMachineDriver.rb      |   56 +++++--
+ src/oca/ruby/OpenNebula/VirtualMachine.rb |   27 +++-
+ src/rm/RequestManager.cc                  |    4 +
+ src/rm/RequestManagerVirtualMachine.cc    |  105 +++++++++++++-
+ src/vm/VirtualMachine.cc                  |    3 +
+ src/vmm/VirtualMachineManager.cc          |  231 +++++++++++++++++++++++++++--
+ src/vmm/VirtualMachineManagerDriver.cc    |   72 +++++++++-
+ src/vmm_mad/dummy/one_vmm_dummy.rb        |    8 +
+ src/vmm_mad/exec/one_vmm_exec.rb          |   42 +++++-
+ src/vmm_mad/exec/one_vmm_sh               |    2 +-
+ src/vmm_mad/remotes/xen/scale_memory      |   26 ++++
+ src/vmm_mad/remotes/xen/scale_vcpu        |   26 ++++
+ src/vmm_mad/remotes/xen/xenrc             |    3 +-
+ 29 files changed, 1204 insertions(+), 83 deletions(-)
+
+Thank for your help,
+
+Paul Grandperrin
