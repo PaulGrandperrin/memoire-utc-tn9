@@ -32,7 +32,7 @@
 		\item[Kanopee] Consultants en développement PHP
 		\item[Nexen Services] Hébergement et Infogérance LAMP\footnote{Linux Apache MySQL PHP}
 		\item[O4DB] Expertise en BDD\footnote{Base de Donnée}
-		\item[Solinux] Spécialistes dans l'administration de platforme Linux et l'intégration d'OpenXchange
+		\item[Solinux] Spécialistes dans l'administration de plateforme Linux et l'intégration d'OpenXchange
 	\end{description}
 
 	Afin de renforcer son offre globale et de soutenir sa stratégie de développement sur le web, Alter Way
@@ -62,13 +62,13 @@ Les services hébergés sont pour la plupart des sites web ainsi que des serveur
 AWH est organisé en quatres équipes affectées à quatres types d'offres différentes:
 
 \begin{description}
-	\item[L'équipe responsable des serveurs dédiées vserveurs \index{VServer}\footnotemark]
+	\item[L'équipe responsable des serveurs dédiés vserveurs \index{VServer}\footnotemark]
 		\footnotetext{Technologie de virtualisation de système d'exploitation permettant d'héberger plusieurs clients sur un seul serveur}
 	\item[L'équipe responsable des offres mutualisées
 		\footnotemark] \footnotetext{Plusieurs sites internet sont hébergés sur un même serveur par un seul logiciel de serveur web}
 	\item[Les RTC \index{RTC}\footnotemark des architectures] \footnotetext{RTC: Responsable Chef de Compte, similaire à Chef de Projet}
 		gèrent les clients les plus importants possédant plusieurs serveurs dédiés
-	\item[Les responsable de l'infrastructure] s'occupent des tâches plus globale touchant à tout les serveurs,
+	\item[Les responsables de l'infrastructure] s'occupent des tâches plus globales touchant à tous les serveurs,
 		principalement la gestion du réseau.
 
 \end{description}
@@ -91,10 +91,10 @@ AWH est organisé en quatres équipes affectées à quatres types d'offres diff�
 \paragraph*{}
 La virtualisation consiste à faire fonctionner un logiciel ou un système d'exploitation (SE) dans un environnement simulé/virtuel.
 \\
-Normalement un logiciel est exécutée par le processeur (CPU) de l'ordinateur. Dans le cas de la virtualisation au niveau logiciel,
-ce logiciel ne sera pas exécuté directement par un vrai CPU mais par un autre logiciel appelé gestionnaire de machine virtuelle.
+Normalement un logiciel est exécuté par le processeur (CPU) de l'ordinateur. Dans le cas de la virtualisation au niveau logiciel,
+ce logiciel ne sera pas exécuté directement par un vrai CPU mais par un autre logiciel appelé ``gestionnaire de machine virtuelle''.
 \\
-Dans le cas de la virtualisation d'un OS (appelé virtualisation matérielle, plusieurs solutions sont possible. La solution la plus basique est de simuler l'intégralité
+Dans le cas de la virtualisation d'un OS (appelé virtualisation matérielle, plusieurs solutions sont possibles. La solution la plus basique est de simuler l'intégralité
 de l'ordinateur: le CPU, le disque dur, la carte réseau, l'écran, la souris, le clavier ect.
 Il devient alors possible de faire fonctionner un OS ou plusieurs OS dans un autre OS.
 
@@ -102,8 +102,8 @@ Il devient alors possible de faire fonctionner un OS ou plusieurs OS dans un aut
 \label{virtualisation_mat}
 \subsubsection{Les différentes techniques}
 \paragraph*{}
-Il existe plusieurs méthode pour virtualiser un système d'exploitation. Chacunes d'elles ont des avantages et des
-inconvéniants. Le choix d'une méthode est un compromis entre les performances, l'isolation des systèmes virtualisés,
+Il existe plusieurs méthodes pour virtualiser un système d'exploitation. Chacunes d'elles ont des avantages et des
+inconvéniants. Le choix d'une méthode est un compromis entre les performances, l'isolation des systèmes virtualisés
 et la simplicité de mise en oeuvre.
 
 \paragraph*{}
@@ -114,11 +114,11 @@ utilisée.
 \paragraph*{}
 \begin{description}
 
-	\item[Par émulation] Fig \index{Émulation matérielle}\ref{emulation} : Relativement facile à mettre en oeuvre, compatible avec tout les systèmes d'exploitations et toutes les architectures
+	\item[Par émulation] Fig \index{Émulation matérielle}\ref{emulation} : Relativement facile à mettre en oeuvre, compatible avec tous les systèmes d'exploitations et toutes les architectures
 	de processeur.\\
 	L'isolation des VMs est parfaite mais les performances sont extrêmement mauvaises.
 
-	\item[Par isolation] Fig \ref{isolation} : Moyennement facile mettre en ouvre, oblige à avoir exactement le même système d'exploitation dans le domU et le dom0.\\
+	\item[Par isolation] Fig \ref{isolation} : Moyennement facile à mettre en oeuvre, oblige à avoir exactement le même système d'exploitation dans le domU et le dom0.\\
 	L'isolation des VMs est généralement très faible mais les performances sont maximales. Les VMs se partagent de manière optimale les ressources de la machine.
 
 	\item[Par noyau en espace utilisateur] Fig \ref{userkernel} : Moyennement facile à mettre en oeuvre et ne fonctionne qu'avec le système d'exploitation Linux en domU.\\
@@ -147,19 +147,19 @@ utilisée.
 \subsection{Principe général}
 \paragraph*{}
 Le \emph{cloud computing} \footnote{Litéralement: ``informatique dans les nuages''} est une expression
-très à la mode ces dernières années et possède une définission très large.
+très à la mode ces dernières années et possède une définition très large.
 Le principe général est d'externaliser sur des serveurs distants des données ou
 des traitements informatiques.
 
 \paragraph*{}
-L'avantage pour l'utilisateur du service est qu'il n'a plus à ce soucier d'où se situent physiquement
+L'avantage pour l'utilisateur du service est qu'il n'a plus à se soucier d'où se situent physiquement
 ses données ni de l'administration des serveurs. Toutes les contraintes de sécurité, de disponibilité
 et de fiabilité sont déportées à la responsabilité de l'hébergeur.
 
 \paragraph*{}
 Pour l'hébergeur, les avantages sont aussi certain: Le cloud computing permet de mutualiser au maximum
 les infrastructures matérielles et d'industrialiser une grande partie des processus d'administration.
-Par conséquence cette technique permet de diminuer sensiblement les coûts et/ou d'augmenter la qualité
+Par conséquent cette technique permet de diminuer sensiblement les coûts et/ou d'augmenter la qualité
 de service.
 
 \subsection{Les différents types de Cloud}
@@ -179,7 +179,7 @@ Par exemple, personne ne connait le numéro de version de GMail et ça n'intére
 
 \subsubsection{PaaS: Platform as a Service\index{PaaS}}
 \paragraph*{}
-Le PaaS est similaire au Saas à la différence que la gestion du logiciel métier est assuré par le client.
+Le PaaS est similaire au Saas à la différence que la gestion du logiciel métier est assurée par le client.
 Le fournisseur fournit les serveurs et s'occupe de la bonne configuration du système d'exploitation et des \emph{middlewares}
 \footnote{\emph{Middlewares}: Logiciel n'étant pas utilisé directement par le client mais par le logiciel métier ou d'autres \emph{middlewares}} afin
 que le logiciel du client fonctionne convenablement.
@@ -199,14 +199,14 @@ Dans le cas de l'IaaS, le fournisseur de service, ne s'occupe plus que de founir
 \\
 Ce type d'offre est le plus souvent mise en place gràce à la virtualisation (voir chapitre \ref{virtualisation}) de système d'exploitation.
 \\
-L'entreprise Amazon, fût pionière dans le domaine de l'IaaS gràce à leur offre d'\textsl{Elastic Compute Cloud}: EC2.
+L'entreprise Amazon, fût pionnière dans le domaine de l'IaaS gràce à leur offre d'\textsl{Elastic Compute Cloud}: EC2.
 
 \subsection*{} %To get correct spacement
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.9\textwidth]{resource/img/clouds-users}
-\caption{Les différents utilisateur du Cloud}
+\caption{Les différents utilisateurs du Cloud}
 \end{figure}
 
 \begin{figure}[H]
@@ -218,14 +218,14 @@ L'entreprise Amazon, fût pionière dans le domaine de l'IaaS gràce à leur off
 \section{La problématique d'Alter Way Hosting}
 
 \paragraph*{}
-Toute cette partie décris les étapes qui ont été réalisés en amont de mon arrivé dans l'entreprise.
+Toute cette partie décrit les étapes qui ont été réalisées en amont de mon arrivée dans l'entreprise.
 
 \subsection{État actuel}
 \paragraph*{}
 Lorsqu'un client fait une demande de serveur, l'équipe doit:
 \begin{listi}
-	\item Prendre un serveur dans le stock ou commander un.
-	\item Le personnaliser en fonction des besoins du clients: Ajouter de la RAM, des disques, des processeurs ...
+	\item Prendre un serveur dans le stock ou en commander un.
+	\item Le personnaliser en fonction des besoins du client: Ajouter de la RAM, des disques, des processeurs ...
 	\item Installer l'OS Debian\footnote{Debian est un système d'exploitation basé sur Linux} dessus et le configurer.
 	\item Emmener et ``racker''\footnote{Terme que l'on utilise pour désigner l'installation d'une lame de serveur dans un rack (baie informatique).\\
 		Voir l'annexe \ref{rack}} le serveur
@@ -233,11 +233,11 @@ Lorsqu'un client fait une demande de serveur, l'équipe doit:
 	\item Configurer les équipements réseaux et vérifier que tout fonctionne bien.
 \end{listi}
 
-Ce processus est long et laborieux et n'est pas très flexible. Il n'est pas possible sans intervention physique sur la machine d'augmenter ou diminier sa puissance.
+Ce processus est long, laborieux et n'est pas très flexible. Il n'est pas possible sans intervention physique sur la machine d'augmenter ou diminier sa puissance.
 
 \subsection{Cahier des charges}
 \paragraph*{}
-L'objectif d'Alter Way Hosting est d'industrialiser/automatiser le processus de deployement et de mise à jour des serveurs.
+L'objectif d'Alter Way Hosting est d'industrialiser/automatiser le processus de déployement et de mise à jour des serveurs.
 
 \paragraph*{}
 Depuis quelques années, l'industrie de l'hébergement informatique est en train de migrer vers une structure de type Cloud utilisant la virtualisation.
@@ -247,9 +247,8 @@ quelques secondes via une simple interface de commande.
 \subsubsection{Acteurs du projet}
 
 \paragraph*{}
-Dans un premier temps, la nouvelle plateforme ne servira pas directement aux clients mais seulement aux techniciens  qui s'occupent des
-demandes des clients.\\
-Les responsables clients sont des habitués de la ligne de commande et pourront se contenter d'une interface de controle simple mais par la suite
+Dans un premier temps, la nouvelle plateforme ne servira pas directement aux clients mais seulement aux techniciens  qui s'occupent de leurs demandes.\\
+Les responsables clients sont des habitués de la ligne de commande et pourront se contenter d'une interface de contrôle simple mais par la suite
 il faudrait que les clients ou les commerciaux puissent directement commander et régler en ligne leur commande via une interface web par exemple.
 
 \subsubsection{Fonctionnalités désirées}
@@ -266,11 +265,11 @@ il faudrait que les clients ou les commerciaux puissent directement commander et
 	\item Éffectuer des \index{\emph{Live Migration}}\emph{live migration}. C'est à dire déplacer une VM d'un hyperviseur à un autre sans interruption de service.\\
 		Ceci permet par exemple de décharger un hyperviseur en déplaçant toutes ses VMs sur les autres hyperviseurs ou un hyperviseur de \emph{spare}
 		\footnote{un équipement de \index{Spare}\emph{spare} est un équipement (serveur, disque dur ...) qui est laissé éteint mais prêt à être utilisé rapidement
-		en cas de problème pour prendre le relais d'un équipement similaire.} pour éffectuer une opération de maintenance par exemple.
+		en cas de problème pour prendre le relais d'un équipement similaire.} pour effectuer une opération de maintenance par exemple.
 		\\
 		Voir figure \ref{livemigration}.
 	\item Dissocier l'hébergement de la VM du stockage de la VM.\\
-		Chaques VMs a au moins un disque virtuel pour stocker son OS et ses données. L'objectif est d'utiliser un serveur spécialisé dans le stockage de données
+		Chaque VM a au moins un disque virtuel pour stocker son OS et ses données. L'objectif est d'utiliser un serveur spécialisé dans le stockage de données
 		(par exemple une baie de stockage Netapp, voir figure \ref{netapp}) indépendant de la machine faisant tourner les VMs. C'est grâce à cette architecture que
 		la \emph{live migration} devient possible.
 \end{listi}
@@ -285,7 +284,7 @@ il faudrait que les clients ou les commerciaux puissent directement commander et
 \subsection{Recherche de solutions}
 \paragraph*{}
 Un travail en amont réalisé par mon tuteur de stage a permis de déterminer une solution technique pour répondre aux besoins d'AlterWay.\\
-Cet solution utilise comme logiciels l'hyperviseur de virtualisation \textbf{Xen}\index{Xen} et le gestionnaire de Cloud \textbf{OpenNebula} et des
+Cette solution utilise comme logiciels l'hyperviseur de virtualisation \textbf{Xen}\index{Xen} et le gestionnaire de Cloud \textbf{OpenNebula} et des
 serveurs de stockage \textbf{NetApp}\footnote{NetApp\index{NetApp} est une société fabriquant des serveurs spécialisée dans le stockage reseau de type SAN (voir \ref{netapp})}.
 
 
@@ -298,7 +297,7 @@ Les deux logiciels se rapprochant le plus de nos objectifs étaient:
 	\item[OpenNebula] \index{OpenNebula} est un autre logiciel \emph{open source} principalement financé par RESERVOIR
 	\footnote{Une organisation européenne de financement de projet \emph{open source} dans le domaine du Cloud Computing} et auquel contribue d'autres organisations
 	comme l'INRIA, le CNRS et d'autres organisations et universités européennes.\\
-	Ce logiciel est moins avancé cependant les fonctionnalités qui nous intéressent et qui sont absentes ne le sont pas non plus dans OpenStack.
+	Ce logiciel est moins avancé mais les fonctionnalités qui nous intéressent et qui sont absentes ne le sont pas non plus dans OpenStack.
 \end{description}
 
 
@@ -306,21 +305,21 @@ Les deux logiciels se rapprochant le plus de nos objectifs étaient:
 \label{cloudissues}
 Lors de la recherche du logiciel de gestion de cloud, aucune solution ne correspondait entièrement à nos attentes pour deux raisons:
 \begin{listi}
-	\item L'augmentation de puissance d'une application client est mis en oeuvre par la multiplication d'instance de VM de ce client.
-		Il faut donc que l'environnement application tournant sur la VM soit designé pour pouvoir tourner efficassement sur
+	\item L'augmentation de puissance d'une application client est mise en oeuvre par la multiplication d'instance de VM de ce client.
+		Il faut donc que l'environnement application tournant sur la VM soit \textsl{designé} pour pouvoir tourner efficacement sur
 		plusieurs machines.\\
-		Malheuresement la grande majorité des application des clients d'Alter Way n'ont pas été pensées et créées pour tirer parti de la
+		Malheureusement la grande majorité des applications des clients d'Alter Way n'a pas été pensée et créée pour tirer parti de la
 		puissance de plusieurs machines.\\
 		Pour ces clients, lors d'une demande d'augmentation de puissance, il est seulement possible d'augmenter directement à chaud
-		la puissance alloué à la VM.
+		la puissance allouée à la VM.
 
-	\item La gestion indépendante du stockage des VMs. Dans ces solutions, les images disques\footnote{une image disque est un gros fichier contenant les données
+	\item La gestion indépendante du stockage des VMs. Dans ces solutions, les images disque\footnote{une image disque est un gros fichier contenant les données
 	du disque dur virtuel apparaissant à la VM} sont typiquement stockées directement sur l'hyperviseur et leur manipulation est souvent très restreinte.
 \end{listi}
 
 \paragraph*{}
 Ces lacunes viennent du fait que ces plateformes de cloud IaaS sont principalement censées être utilisées avec des applications pensées pour fonctionner sur plusieurs VMs. \\
-De plus, les images disques des VMs ne sont pas considérées comme importante car elles ne sont pas censées contenir des données critiques et doivent pouvoir être facilement
+De plus, les images disques des VMs ne sont pas considérées comme importantes car elles ne sont pas censées contenir des données critiques et doivent pouvoir être facilement
 recrées afin de déployer rapidement de nouvelles VMs. Encore une fois, ce cas d'utilisation ne correspond pas à la plupart de nos clients.
 
 \paragraph*{}
@@ -328,9 +327,9 @@ Aucune solution existante ne convenant parfaitement à notre besoin, il a été 
 En effet, ces logiciels étant \emph{open source}, il est tout à fait possible de demander à un développeur d'ajouter les fonctionnalités manquantes.
 
 \paragraph*{}
-Une fois les fonctionnalités développées, chaque logiciels étant continuellement mis-à-jour, il faut soit:
+Une fois les fonctionnalités développées, chaque logiciel étant continuellement mise-à-jour, il faut soit:
 \begin{listi}
-	\item garder un développeur qui d'occupe d'adapter continuellement ces fonctionnalités aux mises-à-jour du logiciel
+	\item garder un développeur qui s'occupe d'adapter continuellement ces fonctionnalités aux mises-à-jour du logiciel
 	\item soit envoyer les patches\footnote{fichier texte contenant les différences de code source entre le logiciel original et sa version modifiée}
 		au projet original (appelé couramment \emph{upstream} dans ce contexte)
 \end{listi}
@@ -365,10 +364,10 @@ Voici la liste des objectifs:
 		de VCPUs et de mémoire vive.
 		\subitem Tester la solution
 	\item Envoyer les modifications à la communauté OpenNebula pour que les modifications soient accessibles à tous et maintenu par les développeurs du projet.
-	\item Adapter l'interface web d'OpenNebula au nouvelles fonctionnalités.
+	\item Adapter l'interface web d'OpenNebula aux nouvelles fonctionnalités.
 	\item Interfacer le logiciel de monitoring de l'entreprise pour surveiller l'état du \emph{cluster}\index{Cluster}\footnote{Désigne un ensemble d'objets. Dans le contexte
 	du cloud computing, l'ensemble des serveurs du Data Center}.
-	\item Déployer la version modifiée d'OpenNebula et tous les autres logiciels nécéssaires (GNU/Debian, Xen ...) sur le cluster d'Alter Way.
-	\item Documenter comment utiliser ce Cloud à intention de l'équipe d'Alter Way Hosting
+	\item Déployer la version modifiée d'OpenNebula et tous les autres logiciels nécessaires (GNU/Debian, Xen ...) sur le cluster d'Alter Way.
+	\item Documenter comment utiliser ce Cloud à l'intention de l'équipe d'Alter Way Hosting
 \end{enumerate}
 
