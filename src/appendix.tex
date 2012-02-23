@@ -326,6 +326,17 @@ Global optional arguments
 Ces benchmarks ont été réalisés dans le but l'impact des différentes versions du noyau linux
 (en DomU) sur les performances d'I/O disque des VM Xen.
 
+\paragraph*{}
+Le cache d'écriture est une technologies permettant d'augmenter sensiblement les performances d'écriture disque au détriment de la sécurité des données en cas de panne
+d'électricité.\\
+Les barrières d'écriture sont une autre technologie complémentaire permettant de rendre le cache d'écriture fiable même en cas de coupure de courant.
+
+\paragraph*{}
+Avec benchmark nous cherchions quel était la configuration la plus performante sans problème de fiabilité inérant au cache d'écriture sans barrière d'écriture.
+
+\paragraph*{}
+Au regard des résultats ci-dessous, nous avons choisi d'utiliser le noyau Linux 3.2 .
+
 
 \begin{figure}[H]
 \centering
