@@ -59,10 +59,10 @@ Alter Way Hosting (AWH), anciennement Nexen Services est la branche de la socié
 Les services hébergés sont pour la plupart des sites web ainsi que des serveurs de messagerie.
 
 \paragraph*{}
-AWH est organisé en quatres équipes affectées à quatres types d'offres différentes:
+AWH est organisé en quatre équipes affectées à quatre types d'offres différentes:
 
 \begin{description}
-	\item[L'équipe responsable des serveurs dédiés vserveurs \index{VServer}\footnotemark]
+	\item[L'équipe responsables des serveurs dédiés vserveurs \index{VServer}\footnotemark]
 		\footnotetext{Technologie de virtualisation de système d'exploitation permettant d'héberger plusieurs clients sur un seul serveur}
 	\item[L'équipe responsable des offres mutualisées
 		\footnotemark] \footnotetext{Plusieurs sites internet sont hébergés sur un même serveur par un seul logiciel de serveur web}
@@ -95,26 +95,26 @@ Normalement un logiciel est exécuté par le processeur (CPU) de l'ordinateur. D
 ce logiciel ne sera pas exécuté directement par un vrai CPU mais par un autre logiciel appelé ``gestionnaire de machine virtuelle''.
 \\
 Dans le cas de la virtualisation d'un OS (appelé virtualisation matérielle, plusieurs solutions sont possibles. La solution la plus basique est de simuler l'intégralité
-de l'ordinateur: le CPU, le disque dur, la carte réseau, l'écran, la souris, le clavier ect.
+de l'ordinateur: le CPU, le disque dur, la carte réseau, l'écran, la souris, le clavier ...
 Il devient alors possible de faire fonctionner un OS ou plusieurs OS dans un autre OS.
 
 \subsection{La virtualisation de système d'exploitation}
 \label{virtualisation_mat}
 \subsubsection{Les différentes techniques}
 \paragraph*{}
-Il existe plusieurs méthodes pour virtualiser un système d'exploitation. Chacunes d'elles ont des avantages et des
-inconvéniants. Le choix d'une méthode est un compromis entre les performances, l'isolation des systèmes virtualisés
+Il existe plusieurs méthodes pour virtualiser un système d'exploitation. Chacune d'elles ont des avantages et des
+inconvénients. Le choix d'une méthode est un compromis entre les performances, l'isolation des systèmes virtualisés
 et la simplicité de mise en oeuvre.
 
 \paragraph*{}
-Dans ce document, nous appelerons les systèmes d'exploitations virtualisés/invités \textbf{VM} comme \emph{Virtual Machine}\index{Machine Virtuelle (VM)} ou \textbf{domU}\index{domU} suivant le contexte.
+Dans ce document, nous appellerons les systèmes d'exploitation virtualisés/invités \textbf{VM} comme \emph{Virtual Machine}\index{Machine Virtuelle (VM)} ou \textbf{domU}\index{domU} suivant le contexte.
 Le système d'exploitation principal/hôte sera appelé \textbf{dom0}\index{dom0} ou \textbf{hyperviseur} si aucun autre logiciel n'a déjà ce rôle dans l'architecture de virtualisation
 utilisée.
 
 \paragraph*{}
 \begin{description}
 
-	\item[Par émulation] Fig \index{Émulation matérielle}\ref{emulation} : Relativement facile à mettre en oeuvre, compatible avec tous les systèmes d'exploitations et toutes les architectures
+	\item[Par émulation] Fig \index{Émulation matérielle}\ref{emulation} : Relativement facile à mettre en oeuvre, compatible avec tous les systèmes d'exploitation et toutes les architectures
 	de processeur.\\
 	L'isolation des VMs est parfaite mais les performances sont extrêmement mauvaises.
 
@@ -157,7 +157,7 @@ ses données ni de l'administration des serveurs. Toutes les contraintes de séc
 et de fiabilité sont déportées à la responsabilité de l'hébergeur.
 
 \paragraph*{}
-Pour l'hébergeur, les avantages sont aussi certain: Le cloud computing permet de mutualiser au maximum
+Pour l'hébergeur, les avantages sont aussi certains: Le cloud computing permet de mutualiser au maximum
 les infrastructures matérielles et d'industrialiser une grande partie des processus d'administration.
 Par conséquent cette technique permet de diminuer sensiblement les coûts et/ou d'augmenter la qualité
 de service.
@@ -167,7 +167,7 @@ de service.
 \subsubsection{SaaS: Software as a Service\index{SaaS}}
 \paragraph*{}
 Le principe du Saas consiste le plus souvent à fournir un service sous la forme d'une application web.
-Le type de service rendu est traditionnelement celui que pourrait fournir une application classique.
+Le type de service rendu est traditionnellement celui que pourrait fournir une application classique.
 \\
 L'exemple le plus populaire est le webmail\footnote{Interface client de gestion de mail sous forme d'un site web}, comme GMail de Google.
 
@@ -195,11 +195,11 @@ Alter Way Hosting, est un bon exemple de fournisseur de PaaS: \\
 
 \subsubsection{IaaS: Infrastructure as a Service\index{IaaS}}
 \paragraph*{}
-Dans le cas de l'IaaS, le fournisseur de service, ne s'occupe plus que de founir du matériel au client: serveurs, stockage, réseau...
+Dans le cas de l'IaaS, le fournisseur de service, ne s'occupe plus que de fournir du matériel au client: serveurs, stockage, réseau...
 \\
 Ce type d'offre est le plus souvent mise en place gràce à la virtualisation (voir chapitre \ref{virtualisation}) de système d'exploitation.
 \\
-L'entreprise Amazon, fût pionnière dans le domaine de l'IaaS gràce à leur offre d'\textsl{Elastic Compute Cloud}: EC2.
+L'entreprise Amazon, fût pionnière dans le domaine de l'IaaS grâce à leur offre d'\textsl{Elastic Compute Cloud}: EC2.
 
 \subsection*{} %To get correct spacement
 
@@ -233,36 +233,36 @@ Lorsqu'un client fait une demande de serveur, l'équipe doit:
 	\item Configurer les équipements réseaux et vérifier que tout fonctionne bien.
 \end{listi}
 
-Ce processus est long, laborieux et n'est pas très flexible. Il n'est pas possible sans intervention physique sur la machine d'augmenter ou diminier sa puissance.
+Ce processus est long, laborieux et n'est pas très flexible. Il n'est pas possible sans intervention physique sur la machine d'augmenter ou diminuer sa puissance.
 
 \subsection{Cahier des charges}
 \paragraph*{}
-L'objectif d'Alter Way Hosting est d'industrialiser/automatiser le processus de déployement et de mise à jour des serveurs.
+L'objectif d'Alter Way Hosting est d'industrialiser/automatiser le processus de déploiement et de mise à jour des serveurs.
 
 \paragraph*{}
 Depuis quelques années, l'industrie de l'hébergement informatique est en train de migrer vers une structure de type Cloud utilisant la virtualisation.
-Cela permet de faire abstraction des problématiques matérielles. Il devient possible de créer, détruire et même redimentionner des machines virtuelles en
+Cela permet de faire abstraction des problématiques matérielles. Il devient possible de créer, détruire et même redimensionner des machines virtuelles en
 quelques secondes via une simple interface de commande.
 
 \subsubsection{Acteurs du projet}
 
 \paragraph*{}
 Dans un premier temps, la nouvelle plateforme ne servira pas directement aux clients mais seulement aux techniciens  qui s'occupent de leurs demandes.\\
-Les responsables clients sont des habitués de la ligne de commande et pourront se contenter d'une interface de contrôle simple mais par la suite
+Les responsables clients sont des habitués de la ligne de commande et pourront se contenter d'une interface de contrôle simple. Par la suite
 il faudrait que les clients ou les commerciaux puissent directement commander et régler en ligne leur commande via une interface web par exemple.
 
 \subsubsection{Fonctionnalités désirées}
 
 \begin{listi}
-	\item Créer et supprimer des VMs sans se soucier de l'endroit exacte ou elles seront réellement exécutées (principe de base Cloud).
-	\item Redimmentionner une VM à chaud (en cours de fonctionnement).\\
+	\item Créer et supprimer des VMs sans se soucier de l'endroit exact ou elles seront réellement exécutées (principe de base Cloud).
+	\item Redimmensionner une VM à chaud (en cours de fonctionnement).\\
 		Les propriétés que l'on souhaite pouvoir modifier:
 		\subitem Quantité de mémoire vive (RAM)
 		\subitem Nombre processeurs virtuels\index{VCPU}\footnote{Les processeurs virtuels (VCPU, \emph{Virtual Central Processing Unit}) sont les processeurs qui apparaissent
 			pour la VM. Ils ne correspondent pas forcément à un processeur physique, d'où leur nom.}
 		\subitem Taille des disques
 		\subitem Nombre de disque
-	\item Éffectuer des \index{\emph{Live Migration}}\emph{live migration}. C'est à dire déplacer une VM d'un hyperviseur à un autre sans interruption de service.\\
+	\item Éffectuer des \index{\emph{Live Migration}}\emph{live migrations}. C'est à dire déplacer une VM d'un hyperviseur à un autre sans interruption de service.\\
 		Ceci permet par exemple de décharger un hyperviseur en déplaçant toutes ses VMs sur les autres hyperviseurs ou un hyperviseur de \emph{spare}
 		\footnote{un équipement de \index{Spare}\emph{spare} est un équipement (serveur, disque dur ...) qui est laissé éteint mais prêt à être utilisé rapidement
 		en cas de problème pour prendre le relais d'un équipement similaire.} pour effectuer une opération de maintenance par exemple.
@@ -291,13 +291,13 @@ serveurs de stockage \textbf{NetApp}\footnote{NetApp\index{NetApp} est une soci�
 \paragraph*{}
 Les deux logiciels se rapprochant le plus de nos objectifs étaient:
 \begin{description}
-	\item[OpenStack] \index{OpenStack} est un logiciel \emph{open source} créée par Rackspace et la NASA. Plus de 120 compagnies ont joint le projet dont Citrix System, Dell, AMD, Intel,
+	\item[OpenStack] \index{OpenStack} est un logiciel \emph{open source} créée par Rackspace et la NASA. Plus de 120 compagnies ont rejoint le projet dont Citrix System, Dell, AMD, Intel,
 		Canonical, SUSE Linux, HP et Cisco.\\
 		C'est le projet qui évolue probablement le plus vite et qui est le plus complet sur le plan des fonctionnalités.
 	\item[OpenNebula] \index{OpenNebula} est un autre logiciel \emph{open source} principalement financé par RESERVOIR
-	\footnote{Une organisation européenne de financement de projet \emph{open source} dans le domaine du Cloud Computing} et auquel contribue d'autres organisations
+	\footnote{Une organisation européenne de financement de projet \emph{open source} dans le domaine du Cloud Computing} et auquel contribuent d'autres organisations
 	comme l'INRIA, le CNRS et d'autres organisations et universités européennes.\\
-	Ce logiciel est moins avancé mais les fonctionnalités qui nous intéressent et qui sont absentes ne le sont pas non plus dans OpenStack.
+	Ce logiciel est moins avancé. Cependant, les fonctionnalités qui nous intéressent et qui sont absentes ne le sont pas non pluefficacements dans OpenStack.
 \end{description}
 
 
@@ -306,9 +306,9 @@ Les deux logiciels se rapprochant le plus de nos objectifs étaient:
 Lors de la recherche du logiciel de gestion de cloud, aucune solution ne correspondait entièrement à nos attentes pour deux raisons:
 \begin{listi}
 	\item L'augmentation de puissance d'une application client est mise en oeuvre par la multiplication d'instance de VM de ce client.
-		Il faut donc que l'environnement application tournant sur la VM soit \textsl{designé} pour pouvoir tourner efficacement sur
+		Il faut donc que l'environnement application tournant sur la VM soit conçu pour pouvoir tourner efficacement sur
 		plusieurs machines.\\
-		Malheureusement la grande majorité des applications des clients d'Alter Way n'a pas été pensée et créée pour tirer parti de la
+		Malheureusement, la grande majorité des applications des clients d'Alter Way n'a pas été pensée et créée pour tirer parti de la
 		puissance de plusieurs machines.\\
 		Pour ces clients, lors d'une demande d'augmentation de puissance, il est seulement possible d'augmenter directement à chaud
 		la puissance allouée à la VM.
@@ -338,7 +338,7 @@ Il a été choisi d'envoyer ces fonctionnalités au projet \emph{upstream} pour 
 l'\emph{open source} qui fournit la quasi totalité des logiciels qu'Alter Way Hosting utilise.
 
 \paragraph*{}
-C'est pour ces raisons qu'OpenNebula a été choisi car son désign plus modulaire et sa plus faible complexité (comparé à OpenStack) le rend
+C'est pour ces raisons qu'OpenNebula a été choisi car son design plus modulaire et sa plus faible complexité (comparé à OpenStack) le rend
 plus apte à être modifié.
 
 \section{Sujet initial}
@@ -355,15 +355,15 @@ Voici la liste des objectifs:
 		\item OpenNebula
 		\item Xen
 		\item l'iSCSI\index{iSCSI}: protocole réseau pour attacher de manière transparente des disques distants à une machine physique ou une VM
-			au travert d'un réseaux Ethernet standard.
+			au travers d'un réseau Ethernet standard.
 		\item l'interface NetApp
 		\end{enumerate}
-	\item Ajouter à OpenNebula le support hétérogène de multiple serveurs de stockage.
+	\item Ajouter à OpenNebula le support hétérogène de multiples serveurs de stockage.
 		\subitem Tester la solution
 	\item Ajouter à OpenNebula la gestion du \emph{hotplug}\index{HotPlug}\footnote{en français: Ajout à chaud, pendant que la machine est en cours de fonctionnement}
 		de VCPUs et de mémoire vive.
 		\subitem Tester la solution
-	\item Envoyer les modifications à la communauté OpenNebula pour que les modifications soient accessibles à tous et maintenu par les développeurs du projet.
+	\item Envoyer les modifications à la communauté OpenNebula pour que les modifications soient accessibles à tous et maintenues par les développeurs du projet.
 	\item Adapter l'interface web d'OpenNebula aux nouvelles fonctionnalités.
 	\item Interfacer le logiciel de monitoring de l'entreprise pour surveiller l'état du \emph{cluster}\index{Cluster}\footnote{Désigne un ensemble d'objets. Dans le contexte
 	du cloud computing, l'ensemble des serveurs du Data Center}.

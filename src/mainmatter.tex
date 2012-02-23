@@ -5,13 +5,13 @@
 \section{Premiers pas}
 
 \paragraph*{}
-Les premiers jours de mon stage ont été dédiés pour tester les logiciels OpenNebula et Xen sur une plateforme de test
+Les premiers jours de mon stage ont été dédiés aux tests des logiciels OpenNebula et Xen sur une plateforme de test
 composée d'un petit serveur accueillant OpenNebula, de deux machines utilisées comme hyperviseurs Xen et d'un NetApp.
 Vivien, mon responsable de stage, avait déjà déployé un environnement de développement fonctionnel sur ces machines.
 
 \paragraph*{}
 Afin de prendre en main la plateforme, mon premier objectif a été de mettre à jour OpenNebula qui était en version 2.2 vers la version 3.0 Beta 1.
-Cette version 2.2 a été modifiée par Vivien pour fonctionner avec un plugin qu'il a écrit pour ajouter le support de l'iSCSI pour déporter le stockage des images
+Cette version 2.2 a été modifiée par Vivien pour fonctionner avec un plugin qu'il a écrit pour ajouter le support de l'iSCSI et pour déporter le stockage des images
 disque des VMs sur le NetApp.
 \\
 Il m'a donc fallu comprendre puis adapter le travail de Vivien. J'ai ensuite effectué beaucoup de tests pour valider le fonctionnement
@@ -80,9 +80,9 @@ ID USER     GROUP    NAME         STAT CPU     MEM        HOSTNAME        TIME
 
 \subsection{Architecture du code d'OpenNebula}
 \paragraph*{}
-Le code d'OpenNebula est designé comme une machine à état séparés en modules qui communiquent des ordres d'action de manière asynchrone.
+Le code d'OpenNebula est conçu comme une machine à états séparés en modules qui communiquent des ordres d'action de manière asynchrone.
 \\
-Chaque module tourne dans le contexte d'un \emph{thread} et utilise une file d'attente FIFO\footnote{FIFO: \emph{First In First Out}, est une structure de donnée où les données poussées à l'interieur
+Chaque module tourne dans le contexte d'un \emph{thread} et utilise une file d'attente FIFO\footnote{FIFO: \emph{First In First Out}, est une structure de donnée où les données poussées à l'intérieur
 en premier sont celles qui en sortent en premier aussi} pour recevoir les messages des autres \emph{threads} de manière asynchrone.
 
 \paragraph*{}
@@ -93,9 +93,9 @@ La machine à état d'OpenNebula est principalement axée autour des états des 
 
 \paragraph*{}
 Pour l'ajout des fonctions de \emph{scale-in}, j'ai du en même temps regarder ce qui était techniquement possible au niveau de l'hyperviseur Xen qui
-sera utilisé comme backend\footnote{Un backend est la partie basse d'une architecture utilisé pour éffectuer des actions à l'extérieur du logiciel.
+sera utilisé comme backend\footnote{Un backend est la partie basse d'une architecture utilisé pour effectuer des actions à l'extérieur du logiciel.
 Par opposition le frontend est la partie haute de l'architecture recevant les ordres de l'utilisateur et commandant les autres parties de l'architecture}
-par OpenNebula pour créér les VMs sur un hyperviseur.
+par OpenNebula pour créer les VMs sur un hyperviseur.
 
 \paragraph*{}
 En effet, en fonction des différentes versions du noyau Linux et de Xen, certaines fonctionnalités sont disponibles, indisponibles ou buggées.\\
@@ -117,14 +117,14 @@ L'objectif était de commencer par s'occuper des modifications de la gestion du 
 \subsection{La gestion du stockage des images disque}
 \paragraph*{}
 Pour l'instant OpenNebula considère que les images disque des VMs sont soit stockées en local sur l'hyperviseur soit partagées sur un répertoire NFS
-	\footnote{NFS: Network File System, est un système de fichier qui permet d'accèder à des fichiers via le réseau. Plusieurs clients peuvent accèder
+	\footnote{NFS: Network File System, est un système de fichier qui permet d'accéder à des fichiers via le réseau. Plusieurs clients peuvent accéder
 	au mêmes fichiers en même temps. Ce système ressemble au protocole SMB de Microsoft\textsuperscript{\textregistered}}\index{NFS}.
-Vivien à aussi écrit un plugin OpenNebula pour partager les images disque via l'iSCSI - plus performant que le NFS pour ce type d'utilisation.
+Vivien a aussi écrit un plugin OpenNebula pour partager les images disque via l'iSCSI - plus performant que le NFS pour ce type d'utilisation.
 \\
-Dans tous les cas, OpenNebula n'a pas été \textsl{designé} pour gérer plusieurs serveurs de stockage et répartir les images disque sur ceux-ci.
+Dans tous les cas, OpenNebula n'a pas été conçu pour gérer plusieurs serveurs de stockage et répartir les images disque sur ceux-ci.
 \\
 Les deux objets les plus importants manipulés par OpenNebula sont les \emph{Hosts} et les VMs. Un \emph{Host} est le nom utilisé par OpenNebula pour
-designer un hyperviseur.
+désigner un hyperviseur.
 Un \emph{Host} contient donc zéro ou plusieurs VMs et une VM a forcément un et un seul \emph{Host} associé.
 
 
@@ -132,24 +132,24 @@ Un \emph{Host} contient donc zéro ou plusieurs VMs et une VM a forcément un et
 Notre objectif serait de faire la même relation entre les images disques vs les serveurs de stockage et les VMs vs les \emph{Hosts}.
 \\
 OpenNebula n'a pour l'instant pas la notion de ce qu'est un serveur de stockage. Une image disque est juste un attribut d'une VM et n'a
-pas de propriété faite pour désigner sur quel serveur de stockage elle se trouve.\\
+pas de propriété faite pour déterminer sur quel serveur de stockage elle se trouve.\\
 De plus, par défaut, OpenNebula considère que l'image disque d'une VM ne contient aucune donnée importante et est supprimée aussitôt
 que la VM est détruite.
 
 \paragraph*{}
-Nous avons donc créé dans le code d'OpenNebula un nouveau type d'objet appelé \emph{storage backend}, littéralement << object s'occupant du stockage >>.
+Nous avons donc créé dans le code d'OpenNebula un nouveau type d'objet appelé \emph{storage backend}, littéralement << objet s'occupant du stockage >>.
 Un \emph{storage backend} pourra être un NetApp, un serveur NFS ou un cluster Ceph\footnote{Ceph est un système de fichier distribué parallèle tolérant aux fautes.
 Voir chapitre \ref{fsdpft}} par exemple. Une image disque devient donc principalement un attribut d'un
-\emph{storage backend} et peut vivre et être manipulée indépendamment des VMs.
+\emph{storage backend}, et peut vivre et être manipulée indépendamment des VMs.
 
 
 \paragraph*{}
 Ce nouvel objet a nécéssité énormément de modifications au code source d'OpenNebula:
 \begin{enumerate}
 	\item Ajout de plusieurs modules pour gérer le cycle de vie d'un \emph{storage backend} et ses liens avec les autres objets du système.
-	\item \textsl{Designer} un protocole de communication générique avec les \emph{drivers}/pilotes des \emph{storage backend}.
+	\item Concevoir un protocole de communication générique avec les \emph{drivers}/pilotes des \emph{storage backend}.
 	\item L'écriture d'une architecture de gestion de plugin/driver pour communiquer avec le \emph{storage backend}.
-	\item \textsl{Rédesigner} entièrement et réécrire le \emph{Transfert Manager} (Gestionnaire de transfert) car il n'était pas du tout assez flexible
+	\item Reconvevoir entièrement et réécrire le \emph{Transfert Manager} (Gestionnaire de transfert) car il n'était pas assez flexible
 		pour gérer les tranferts entre les différents \emph{storage backend}.
 	\item Étendre le protocole XML/RPC et les outils de la CLI pour pouvoir administrer ces nouvelles fonctionnalités.
 	\item Documenter les modifications.
@@ -163,10 +163,10 @@ Ce nouvel objet a nécéssité énormément de modifications au code source d'Op
 
 \paragraph*{}
 Après environ un mois de programmation sur OpenNebula, j'ai commencé à avoir des doutes sur la faisabilité du projet sur la durée du stage et
-aussi sur les chances que ces changements soit acceptés par la communauté.
+également quant aux chances que ces changements soit acceptés par la communauté.
 
 \paragraph*{}
-À ce stade, je commençais à avoir quelques parties de la nouvelle architecture qui fonctionnaient mais les changements apportés étaient très
+À ce stade, je commençais à avoir certaines parties de la nouvelle architecture qui fonctionnaient mais les changements apportés étaient très
 conséquents et beaucoup plus dispersés que prévu. Nous pensions que le périmètre des modifications au projet serait beaucoup plus limité.\\
 Voir un résumé des modifications apportées à OpenNebula en annexe \ref{modopennebula}.
 
@@ -178,9 +178,14 @@ Nous avons aussi préparé une présentation de l'état actuel des choses et des
 présenter au Chef de Projet d'Exploitation Kévin \textsc{Mazière} et au Directeur de Production Laurent \textsc{Alaguero}.
 
 \paragraph*{}
-Les alternatives possibles étaient soit d'écrire entièrement (\emph{from scratch}\footnote{littéralement: << depuis zéro >>}) un nouveau gestionnaire de
-cloud correspondant parfaitement à notre besoin et seulement à notre besoin ou d'acheter des licences VMWare\textsuperscript{\textregistered} qui pourraient
+Les alternatives possibles étaient:
+\begin{listi}
+    \item Soit d'écrire entièrement (\emph{from scratch}\footnote{littéralement: << depuis zéro >>}) un nouveau gestionnaire de
+cloud correspondant parfaitement à notre besoin et seulement à notre besoin.
+    \item Soit d'acheter des licences VMWare\textsuperscript{\textregistered} qui pourraient
 convenir à notre besoin mais très onéreuses et en désaccord avec l'esprit de l'entreprise (préférence des logiciels Open-Source).
+\end{listi}
+
 
 \subsection{La prise de décision}
 \paragraph*{}
@@ -193,7 +198,7 @@ POC\footnote{\index{POC}POC: \emph{Proof Of Concept}, Preuve de concept} de la m
 \index{H2O}
 \paragraph*{}
 H2O est le nom de code du projet de création d'un nouveau gestionnaire de cloud.
-Grâce à notre expérience sur le projet OpenNebula, Vivien et moi avons pu très rapidement désigner une nouvelle architecture
+Grâce à notre expérience sur le projet OpenNebula, Vivien et moi avons pu très rapidement concevoir une nouvelle architecture
 simple et robuste, basée sur la philosophie du KISS\footnote{KISS: \emph{Keep It Stupid Simple}, << Garde ça simple, stupide >>}.
 
 
@@ -206,18 +211,18 @@ Ce langage est très réputé pour sa productivité et la << beauté >> du code 
 mais ce n'est pas un problème pour notre projet.
 
 \paragraph*{}
-Notre architecture est -- tout comme OpenNebula -- séparée en plusieurs modules, mais à la différence de celui-ci nous avons choisi de faire que toutes les actions soient gérées
-de manière séquencielle synchrone.\\ %Oui c'est un peut redondant mais c'est pour être sur que le lecteur comprenne.
-Encore une fois ce type de fonctionnement n'est pas optimal au niveau des performances, mais nous avons estimé que si nous déployons pas plus d'une centaine de VMs à
+Notre architecture est -- tout comme OpenNebula -- séparée en plusieurs modules. À la différence de celui-ci nous avons choisi de faire en sorte que toutes les actions soient gérées
+de manière séquencielle et synchrone.\\ %Oui c'est un peut redondant mais c'est pour être sur que le lecteur comprenne.
+Encore une fois ce type de fonctionnement n'est pas optimal au niveau des performances, mais nous avons estimé que si nous déployions pas plus d'une centaine de VMs à
 l'heure ça ne devrait pas poser de problème.
-Tout gérer de manière synchrone permet de simplifier drastiquement la machine à état du programme, la gestion des erreurs, la complexité globale du code et le déboggage
+Tout gérer de manière synchrone permet de simplifier drastiquement la machine à état du programme, la gestion des erreurs, la complexité globale du code et le débogage
 du programme.
 
 \paragraph*{}
-Un autre choix important que nous avons pris est de faire passer toutes les communications entre les modules par une base de donnée (BDD\index{BDD})
+Un autre choix important que nous avons pris a été de faire passer toutes les communications entre les modules partester une base de donnée (BDD\index{BDD})
 SQL\footnote{\index{SQL}SQL: \emph{Structured Query Language} est un langage permettant de faire des requêtes dans une base de donnée structurée} (MySQL ou SQLite).
 Cela permet de ne pas avoir à créer de protocole de communication entre les différents modules et garantit qu'à tout moment en cas de panne système (coupure électrique
-par exemple) l'état du cloud soit enregistré dans la BDD.
+par exemple) l'état du cloud est bien enregistré dans la BDD.
 
 \section{Développement}
 
@@ -229,14 +234,14 @@ sur les sources d'un logiciel et de garder un historique de toutes les révision
 Nous avons travaillé à deux, Vivien et moi, à plein temps sur ce projet. C'était très intéressant et nous sommes très rapidement arrivés à une démo fonctionnelle avec une bonne
 qualité de code.
 \\
-Voici les fonctionnalités que nous avons implémenté après trois semaines:
+Voici les fonctionnalités que nous avons implémentées après trois semaines:
 \begin{listi}
 	\item Gestion des hyperviseurs : enregistrement, désenregistrement, monitoring, vérification du bon fonctionnement...
 	\item Gestion des VMs: création, suppression, \emph{live-migration}, affichage des informations ...
 	\item \emph{Live Migration} entre deux hyperviseurs
 	\item Gestion indépendante des images disques et cartes réseau et archives d'OS
 	\item \emph{Hotplug} de mémoire RAM et de VCPUs et nouvelles images disque
-	\item Redimentionnement d'images disque à chaud
+	\item Redimensionnement d'images disque à chaud
 	\item Gestion indépendante des images disques
 	\item Interface en CLI uniquement. Voir annexe \ref{CLIH2O}.
 \end{listi}
@@ -251,8 +256,8 @@ M. Simonin.
 La démonstration s'est bien passée et tout le monde était très satisfait de ce que nous avions réussi à développer.
 
 \paragraph*{}
-Le problème c'est que durant la période de développement, Vivien, mon tuteur de stage, nous a annoncé qu'il quitterait la société fin décembre. Il a eu une proposition très intéressante
-qu'il a acceptée mais a déplacé le jour de son départ le plus tard possible, c'est à dire au 1\textsuperscript{er} janvier 2012.
+Le problème a été ensuire que durant la période de développement, Vivien, mon tuteur de stage, nous a annoncé qu'il quitterait la société fin décembre. Il venait d'accepter une proposition très intéressante
+d'une autre société. Heusement, il a pu déplacer le jour de son départ le plus tard possible, c'est à dire au 1\textsuperscript{er} janvier 2012.
 
 \paragraph*{}
 En attendant qu'une nouvelle personne puisse s'occuper de la maintenance de cette solution après le départ de Vivien et de moi même, il m'a été demandé de mettre en pause ce projet
@@ -267,7 +272,7 @@ Une fois le projet H2O complété mais en attente de mainteneur, il a été jug�
 le support du \emph{scale-in}, moins compliqué à implémenter.
 
 \paragraph*{}
-Ce travail était déjà prévu à l'origine du stage mais était moins priotitaire que le support de multiple \emph{storage backend}.
+Ce travail était déjà prévu à l'origine du stage mais était moins prioritaire que le support de multiple \emph{storage backend}.
 L'ajout du \emph{scale-in} n'est pas dépendant de cet ancien travail mais toujours aussi utile.\\
 
 \section{Développement}
@@ -286,24 +291,24 @@ Voici un aperçu très simplifié du code source d'OpenNebula qui ne contient qu
 \centering
 \includegraphics[width=0.9\textwidth]{resource/graph/ONE}
 \caption{Les composants de l'architecture d'OpenNebula qui seront modifiés pour le support du \emph{scale-in}\\}
-Les flêches représentent le sens du passage des messages dans le cas de l'exécution d'une commande par un utilisateur.
+Les flèches représentent le sens du passage des messages dans le cas de l'exécution d'une commande par un utilisateur.
 \label{archionescalein}
 \end{figure}
 
 
 \paragraph*{}
 Pour reprendre la programmation sur OpenNebula, il m'a fallu réinstaller l'environnement de développement d'OpenNebula et redéployer notre architecture de test.
-Ensuite j'ai réussi très rapidement à me << replonger >> dans le code d'OpenNebula et à implémenter une permière version fonctionnelle mais incomplete du \emph{scale-in}.
+Ensuite j'ai réussi très rapidement à me << replonger >> dans le code d'OpenNebula et à implémenter une permière version fonctionnelle mais incomplète du \emph{scale-in}.
 
 \paragraph*{}
-À ce stade du développement, j'avais quelques hésitations sur des questions de design. J'ai donc décidé de contacter la communauté OpenNebula pour les informer de l'existance
+À ce stade du développement, j'avais quelques hésitations sur des questions de design. J'ai donc décidé de contacter la communauté OpenNebula pour les informer de l'existence
 du projet et leur demander conseil.\\
 J'ai tout d'abord cherché à parler avec les développeurs sur IRC\footnote{\index{IRC}IRC: \emph{Internet Relay Chat}, protocole de messagerie instantanée beaucoup utilisée
-par les développeurs de projets open-source.} sur leur salon officiel mais il n'y avait que très peu de monde et on m'a conseillé d'envoyer un mail sur la \emph{mailling-list} du
+par les développeurs de projets open-source.} sur leur salon officiel mais il n'y avait que très peu de monde et on m'a conseillé d'envoyer un mail sur la \emph{mailing-list} du
 projet.
 
 \paragraph*{}
-J'ai donc écris et j'ai eu une réponse très positive du \emph{Project Engineer} d'OpenNebula.\\
+J'ai écris ce mail et ai eu une réponse très positive du \emph{Project Engineer} d'OpenNebula.\\
 L'échange de mail est disponible en annexe \ref{mailone}.
 
 
@@ -312,12 +317,12 @@ L'échange de mail est disponible en annexe \ref{mailone}.
 \section{La Conférence OpenStack}
 \paragraph*{}
 Le 21 septembre 2011, à peine plus de deux semaines après mon début de stage une conférence internationale sur le Cloud Computing s'est déroulée à Paris.
-Normalement Vivien \textsc{Bernet-Rollande} et Kévin \textsc{Mazière} devaient participer à cette conférence mais Kévin n'a finalement pas pu venir. J'ai donc
- pris sa place.
+Normalement Vivien \textsc{Bernet-Rollande} et Kévin \textsc{Mazière} devaient participer à cette conférence.
+Kévin ne pouvant s'y rendre, j'ai pu y aller à sa place.
 
 \paragraph*{}
 Vivien et moi nous sommes rendu à la conférence à Paris.
-Il y avait une cinquantaine de participants et une dixaine de présentations réparties toute la journée avec un petit buffet.
+Cette conférence comptait une cinquantaine de participants et une dizaine de présentations réparties toute la journée avec un petit buffet.
 
 \paragraph*{}
 La conférence était organisée par Rackspace pour la promotion de leur solution OpenStack. Plusieurs partenaires au projet étaient présents:\\
@@ -325,7 +330,7 @@ Dell, Canonical (Société derrière le système d'exploitation Ubuntu), UShareS
 
 \paragraph*{}
 Les conférences étaient pour la plupart en anglais. Les informations que j'ai appris m'ont été très utiles pour la suite de mon stage.\\
-C'est aussi lors du moment des questions sur OpenStack que nous avons pu demander directement à un des manageur principal du projet pourquoi les solutions actuelles de Cloud
+C'est aussi lors du moment des questions sur OpenStack que nous avons pu demander directement à un des principaux manageurs du projet pourquoi les solutions actuelles de Cloud
 étaient si peu adaptées à nos problématiques. Voir chapitre \ref{cloudissues}.
 
 
@@ -334,18 +339,20 @@ C'est aussi lors du moment des questions sur OpenStack que nous avons pu demande
 Mi-octobre Kévin \textsc{Mazière} a eu pour mission de trouver des idées innovantes de projet en rapport avec le Cloud Computing par le groupe \textsc{Systematic Paris Region}.
 
 \paragraph*{}
-Le groupe \textsc{Systematic Paris Region} a pour mission de financer publiquement des projets de R\&D français et européens. Si notre projet est retenu par ce comité, Alter Way
-recevra des fonds pour développer le projet à condition que celui-ci soit rendu open-source.
+Le groupe \textsc{Systematic Paris Region} a pour mission d'attribuer des fincancements publics à des projets
+de R\&D français et européens.\\
+L’idée poursuivie par Alter Way était de pouvoir recevoir des fonds pour développer nos projets sous condition que celui-ci soit accepté par le comité et soit rendu open-source.
 
 \paragraph*{}
-Ce projet pourait être intéressant pour Alter Way. L'entreprise pourrait ainsi profiter d'ingénieurs supplémentaire en R\&D dans son équipe.
-Elle profiterai aussi de l'expérience acquise sur le projet en développement. Elle aurait une position privilégiée sur une technologie innovante.\\
-Le projet est aussi intéressant pour la communauté du Cloud Computing au sens plus large car l'accès au logiciel ainsi que son code source serait disponible à tous.
-
+L’intérêt majeur pour Alter Way était de pouvoir disposer de plus d’ingénieurs en R\&D dans son équipe
+et de profiter de l’expérience acquise sur le projet en développement.
+Ainsi, elle pourrait acquérir plus rapidement une position privilégiée sur une technologie innovante.\\
+Par ailleurs, le projet est également intéressant pour la communauté du Cloud Computing au sens  large car
+l’accès au logiciel ainsi que son code source serait rendu disponible à tous.
 
 \paragraph*{}
-Vivien en vacances à ce moment là et Kévin étant très occupé, on m'a demandé d'aider à trouver des idées.
-Je me suis donc beaucoup documenté sur les diverses technologies de stockage utilisées dans le Cloud et les divers type d'hyperviseur.
+Vivien en vacances à ce moment là et Kévin étant très occupé, il m'a été demandé d'aider à trouver des idées.
+Je me suis donc beaucoup documenté sur les diverses technologies de stockage utilisées dans le Cloud et les divers types d'hyperviseur.
 \\
 Un plus était de trouver des idées en rapport avec des besoins directs d'Alter Way.
 
@@ -359,7 +366,7 @@ Je me suis beaucoup renseigné sur les divers systèmes de fichier distribués p
 Un système de fichier distribué signifie qu'il est accessible par plusieurs clients en même temps.
 
 \paragraph*{}
-Ce type de système de fichier distribue les données sur plusieurs serveurs sur un réseau. L'avantage est qu'il est possible d'avoir d'énormes systèmes de fichier de plusieurs
+Il distribue les données sur plusieurs serveurs sur un réseau. L'avantage est qu'il est possible d'avoir d'énormes systèmes de fichier de plusieurs
 Pétaoctets (plusieurs millions de Gigaoctets).\\
 Les performances sont aussi très bonnes car la charge est répartie sur l'intégralité du cluster.
 
@@ -401,25 +408,25 @@ Une autre technologie qui pourrait être utile pour Alter Way en rapport avec le
 \end{figure}
 
 \paragraph*{}
-La virtualisation par conteneur est très différente de la virtualisation matérielle ou paravirtualisée car seule les applications sont virtualisées.
-Toutes les applications tournent sur le même noyau mais celui-ci va simuler à chaque groupe de processus d'une VM qu'il est le seule à tourner sur
+La virtualisation par conteneur est très différente de la virtualisation matérielle ou para-virtualisée car seules les applications sont virtualisées.
+Toutes les applications tournent sur le même noyau mais celui-ci va simuler à chaque groupe de processus d'une VM qu'il est le seul à tourner sur
 cette machine et ne lui permettra pas de communiquer avec les processus des autres VMs.
 
 \paragraph*{}
-Ce type de virtualisation permet d'utiliser la RAM de manière beaucoup plus efficiente que Xen par exemple car chaque VMs utilise le même noyau qui n'utilise
-que la RAM nécéssaire pour chacun des processus des VMs. Sur Xen, il est nécéssaire d'allouer une quantité de RAM à chaque VMs, même s'il elle ne l'utilise pas complètement.
+Ce type de virtualisation permet d'utiliser la RAM de manière beaucoup plus efficiente que Xen par exemple car chaque VM utilise le même noyau qui n'utilise
+que la RAM nécessaire pour chacun des processus des VMs. Sur Xen, il est nécessaire d'allouer une quantité de RAM à chaque VM, même si elle ne l'utilise pas complètement.
 \\
-Cela permet d'accumuler beaucoup plus de VMs sur un même serveur mais ces VMs auront moins de garanties de performances dans le cas ou toutes les VMs souhaitent utiliser
-en même temps beaucoup de RAM, ce qui posera une très grosse perte de performance voir l'arrêt pur et simple d'une ou plusieurs VMs.
+Cela permet d'accumuler beaucoup plus de VMs sur un même serveur. En contrepartie, ces VMs ont moins de garanties de performances dans le cas ou toutes les VMs souhaitent utiliser
+en même temps beaucoup de RAM. Dans ce cas il peut y avoir une très grosse perte de performance voir l'arrêt pur et simple d'une ou plusieurs VMs.
 
 \paragraph*{}
-Ce type de virtualisation est complémentaire au solution de virtualisation matérielle. La virtualisation matérielle est destinée aux clients exigeants ayant besoins de garanties
-de performance. Elle sera facturée plus à cause du nombre plus restreint de VMs que l'on peut héberger sur un serveur.
+Ce type de virtualisation est complémentaire aux solutions de virtualisation matérielle qui sont elles destinée aux clients exigeants ayant besoins de garanties
+de performance. La conséquence est une facturation supérieure liée au nombre plus restreint de VMs qu'il est possible d'héberger sur un serveur.
 \\
 La virtualisation par conteneur permet d'avoir une offre moins chère pour les clients moins exigeants.
 
 \paragraph*{}
-La principale limitation des containeurs est qu'aucune technologie open-source existante ne permet de faire des \emph{live-migration}, essentielles pour correctement répartir
+La principale limitation des containeurs est qu'aucune technologie open-source existante ne permet de faire des \emph{live-migration}, essentielles pour répartir correctement
 la charge entre les différents hyperviseurs d'un cluster de cloud.
 
 \paragraph*{}
@@ -429,7 +436,7 @@ L'objectif du projet est donc d'ajouter le support de la live-migration sur la t
 
 \subsubsection{La soumission des projets}
 \paragraph*{}
-D'autres idées ont été proposées à Kévin mais nous avons choisi de soumettre au comité les deux idées décritent précédemment.
+D'autres idées ont été proposées à Kévin mais nous avons choisi de soumettre au comité les deux idées décrites précédemment.
 \\
 Après un premier retour du comité, il nous a été conseillé de concentrer nos efforts de spécification sur la deuxième idée -- plus réaliste au vu du budget/temps qui sera alloué au projet.
 
@@ -438,15 +445,15 @@ Nous avons rédigé avec Kévin un cahier des charges et une présentation du pr
 \textbf{S}ystème de \textbf{T}ransport d'\textbf{E}nvi\textbf{R}onnement \textbf{N}oyau, sterne est aussi le nom d'un oiseau.}
 
 \paragraph*{}
-Nous avons ensuite été convoqué à Paris dans les locaux de la société Open-Wide pour présenter notre projet au jury.
+Nous avons ensuite été convoqués à Paris dans les locaux de la société Open-Wide pour présenter notre projet au jury.
 \\
-Véronique \textsc{Torner} (Co-Présidente d'Alter Way), Hervé \textsc{Leclerc} (Directeur Technique), Kévin \textsc{Mazière} ainsi que moi-même nous sommes rendu sur place.
+Véronique \textsc{Torner} (Co-Présidente d'Alter Way), Hervé \textsc{Leclerc} (Directeur Technique), Kévin \textsc{Mazière} ainsi que moi-même nous sommes rendus sur place.
 
 \paragraph*{}
-Le jury était composé d'une quinzaine de personnes. Kévin a fait la présentation du projet et j'ai répondu aux questions techniques du jury. Véronique \textsc{Torner}
+Le jury était composé d'une quinzaine de personnes. Kévin a fait la présentation du projet et j'ai répondu moi-même aux questions techniques du jury. Véronique \textsc{Torner}
 et Hervé \textsc{Leclerc} répondaient aux questions relatives à l'entreprise Alter Way.
 \\
-La présentation s'est bien passée et il y a eu des échanges de question-réponses très intéressants.
+La présentation s'est bien passée et il y a eu des échanges très intéressants.
 
 
 \subsubsection{Résultat}
@@ -469,4 +476,4 @@ Malheureusement pour des raisons budgétaires et organisationnelles non prévues
 
 
 
-\cite{test}
+%\cite{test}

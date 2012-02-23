@@ -7,7 +7,7 @@ xdg-open: pdf
 
 pdf : resource
 	latex -shell-escape main
-	bibtex main
+	#bibtex main
 	makeindex main
 	latex -shell-escape main
 	pdflatex -shell-escape main
